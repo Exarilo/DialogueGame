@@ -14,6 +14,7 @@ namespace JeuRonron
 {
     public partial class Scene : UserControl
     {
+        private Bulle bulle;
 
         public Bulle Bulle { get; set; }
         public string SceneName { get; set; }
@@ -53,49 +54,19 @@ namespace JeuRonron
                     }
                 }
             }
-            string[] scenarioLines = File.ReadAllLines(path + "\\Scénario.txt");
-            foreach (string line in scenarioLines)
-            {
-                if (line.StartsWith(Constant.DelimiteurStartChar) && line.Contains(Constant.DelimiteurEndChar))
-                {
-                    var match = new Regex($"\\{Constant.DelimiteurStartChar}*.*\\{Constant.DelimiteurEndChar}").Match(line);
-                    if (match.Success)
-                    {
-                        var characterMatch = listChar.Where(x => x.Name.ToLower().Equals(match.Value.Substring(1, match.Value.Length - 2).ToLower())).FirstOrDefault();
-                        if (characterMatch != null)
-                            characterMatch.Dialogues.Add(line);
-                        else
-                        {
-                            bool isCharFind = false;
-                            foreach (var character in listChar)
-                            {
-                                int levenshteinDistance = Fastenshtein.Levenshtein.Distance(character.Name, match.Value.Substring(1, match.Value.Length - 2).ToLower());
-                                if (levenshteinDistance <= 1)
-                                {
-                                    character.Dialogues.Add(line);
-                                    isCharFind = true;
-                                    break;
-                                }
-
-                            }
-                            if (!isCharFind)
-                            {
-                                listChar.Add(new Character(match.Value.Substring(1, match.Value.Length - 2)));
-                            }
-
-                        }
-                    }
-                }
-                else
-                {
-                    listChar.Where(x => x.Name == Constant.UnkownCharName).FirstOrDefault().Dialogues.Add(line);
-                }
-            }
+            scenario = File.ReadAllLines(path + "\\Scénario.txt");
         }
         private void Scene_Load(object sender, EventArgs e)
-        {
-            Bulle bulle = new Bulle();
-            this.Controls.Add(bulle);
+        {           
+            foreach (string line in scenario)
+            {
+                bool isClicked = false;
+                bulle = new Bulle(listChar, line);
+                bulle.message.Text = line;
+
+
+            }
+    
             //Character character = new Character();
             //character.Name = "Je suis le nom du perso";
             //bulle1 = new Bulle(character);
@@ -104,10 +75,23 @@ namespace JeuRonron
 
         private void InitializeComponent()
         {
+            this.bulle = new JeuRonron.Bulle();
             this.SuspendLayout();
+            // 
+            // bulle
+            // 
+            this.bulle.CharName = null;
+            this.bulle.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bulle.isPanelCharNameExist = false;
+            this.bulle.Location = new System.Drawing.Point(0, 268);
+            this.bulle.Name = "bulle";
+            this.bulle.panelNameChar = null;
+            this.bulle.Size = new System.Drawing.Size(434, 100);
+            this.bulle.TabIndex = 0;
             // 
             // Scene
             // 
+            this.Controls.Add(this.bulle);
             this.Name = "Scene";
             this.Size = new System.Drawing.Size(434, 368);
             this.Load += new System.EventHandler(this.Scene_Load);
