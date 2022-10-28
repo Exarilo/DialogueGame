@@ -14,7 +14,6 @@ namespace JeuRonron
 {
     public partial class Scene : UserControl
     {
-        private Bulle bulle;
 
         public Bulle Bulle { get; set; }
         public string SceneName { get; set; }
@@ -22,6 +21,8 @@ namespace JeuRonron
         public List<Character> listChar { get; set; } = new List<Character>();
         public List<Background> listBackground { get; set; } = new List<Background>();
         public string[] scenario { get; set; }
+        private string MessageToDisplay { get; set; }
+        public string CharName { get; set; }
 
         public Scene()
         {
@@ -56,42 +57,88 @@ namespace JeuRonron
             }
             scenario = File.ReadAllLines(path + "\\Scénario.txt");
         }
+        public async void SetBulleText(Bulle bulle)
+        {
+            await bulle.message.SetText(MessageToDisplay);
+        }
         private void Scene_Load(object sender, EventArgs e)
-        {           
+        {
+            
+
             foreach (string line in scenario)
             {
-                bool isClicked = false;
-                bulle = new Bulle(listChar, line);
-                bulle.message.Text = line;
+                
+                DetectChar(line);
+                var detectedChar = listChar.Where(x => x.Name.Contains(CharName)).ToList();
+                if (detectedChar.Any())
+                {
+                    Bulle bulle = new Bulle(detectedChar[0]);
+                    SetBulleText(bulle);
+                    //DELEGATE INSTEAD OF ASYNC?
+                }
+
+
+                //if(listChar.Contains(CharName))
+                //bulle = new Bulle()
+                //bulle.message = new Bulle.Message(MessageToDisplay);
+
 
 
             }
-    
+
             //Character character = new Character();
             //character.Name = "Je suis le nom du perso";
             //bulle1 = new Bulle(character);
             //this.Controls.Add(bulle1);
         }
+        public void DetectChar(string line)
+        {
+            if (line.StartsWith(Constant.DelimiteurStartChar) && line.Contains(Constant.DelimiteurEndChar))
+            {
+                var match = new Regex($"\\{Constant.DelimiteurStartChar}*.*\\{Constant.DelimiteurEndChar}").Match(line);
+                if (match.Success)
+                {
+                    var characterMatch = listChar.Where(x => x.Name.ToLower().Equals(match.Value.Substring(1, match.Value.Length - 2).ToLower())).FirstOrDefault();
+                    if (characterMatch != null)
+                    {
+                        MessageToDisplay = line.Replace("[" + characterMatch.Name + "]", "");
+                        CharName = characterMatch.Name;
+                    }
+                    else
+                    {
+                        bool isCharFind = false;
+                        foreach (var character in listChar)
+                        {
+                            int levenshteinDistance = Fastenshtein.Levenshtein.Distance(character.Name, match.Value.Substring(1, match.Value.Length - 2).ToLower());
+                            if (levenshteinDistance <= 1)
+                            {
+                                MessageToDisplay = line.Replace("[" + character.Name + "]", "");
+                                CharName = character.Name;
+                                isCharFind = true;
+                                return;
+                            }
+                        }
+                        if (!isCharFind)
+                        {
+                            MessageToDisplay = line.Replace("[" + match.Value.Substring(1, match.Value.Length - 2) + "]", "");
+                            CharName = match.Value.Substring(1, match.Value.Length - 2);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                listChar.Where(x => x.Name == Constant.UnkownCharName).FirstOrDefault().Dialogues.Add(line);
+            }
+
+        }
 
         private void InitializeComponent()
         {
-            this.bulle = new JeuRonron.Bulle();
             this.SuspendLayout();
-            // 
-            // bulle
-            // 
-            this.bulle.CharName = null;
-            this.bulle.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bulle.isPanelCharNameExist = false;
-            this.bulle.Location = new System.Drawing.Point(0, 268);
-            this.bulle.Name = "bulle";
-            this.bulle.panelNameChar = null;
-            this.bulle.Size = new System.Drawing.Size(434, 100);
-            this.bulle.TabIndex = 0;
             // 
             // Scene
             // 
-            this.Controls.Add(this.bulle);
             this.Name = "Scene";
             this.Size = new System.Drawing.Size(434, 368);
             this.Load += new System.EventHandler(this.Scene_Load);

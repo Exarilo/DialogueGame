@@ -28,6 +28,9 @@ namespace JeuRonron
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            //Bulle bulle = new Bulle();
+            //bulle.message.Text = "salut";
+            //this.Controls.Add(bulle);
             game = new Game();
             game.Load();
             RefreshFormWithSelectionnedScene();
@@ -72,7 +75,7 @@ namespace JeuRonron
         }
         public void AddCharImg()
         {
-            int numberOfNullCharImage = game.listScenes.Where(x => x.listChar[game.currentSceneIndex].Image == null).Count();
+            int numberOfNullCharImage = game.listScenes[game.currentSceneIndex].listChar.Where(x => x.Image == null).Count();
             int PictureBoxHeight = (this.Height / 2)+50;
             int PictureBoxWidth = this.Width / (game.listScenes[game.currentSceneIndex].listChar.Count- numberOfNullCharImage);
             int cptPictureInScreen = 0;
