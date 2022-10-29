@@ -7,8 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace JeuRonron
 {
@@ -23,6 +25,7 @@ namespace JeuRonron
         public string[] scenario { get; set; }
         private string MessageToDisplay { get; set; }
         public string CharName { get; set; }
+        private SemaphoreSlim signal = new SemaphoreSlim(0);
 
         public Scene()
         {
@@ -57,39 +60,34 @@ namespace JeuRonron
             }
             scenario = File.ReadAllLines(path + "\\Scénario.txt");
         }
-        public async void SetBulleText(Bulle bulle)
-        {
-            await bulle.message.SetText(MessageToDisplay);
-        }
-        private void Scene_Load(object sender, EventArgs e)
-        {
-            
 
+        protected void MessageClick(object sender, EventArgs e) 
+        {
+            signal.Release();
+
+        }
+        private async void Scene_Load(object sender, EventArgs e)
+        {
             foreach (string line in scenario)
-            {
-                
+            {        
                 DetectChar(line);
                 var detectedChar = listChar.Where(x => x.Name.Contains(CharName)).ToList();
                 if (detectedChar.Any())
                 {
                     Bulle bulle = new Bulle(detectedChar[0]);
-                    SetBulleText(bulle);
-                    //DELEGATE INSTEAD OF ASYNC?
+                    this.Controls.Add(bulle);
+                    bulle.message.Click += new EventHandler(MessageClick);
+                    bulle.message.Text = MessageToDisplay;
+                    await signal.WaitAsync();
+                    this.Controls.Remove(bulle);
+                    var panelCharName = Parent.Controls.OfType<Panel>().Where(x => x.Name.Equals("panelCharName")).ToList();
+                    foreach (var panel in panelCharName)
+                    {
+                        this.Parent.Controls.Remove(panel);
+                    }
+                    Parent.Refresh();
                 }
-
-
-                //if(listChar.Contains(CharName))
-                //bulle = new Bulle()
-                //bulle.message = new Bulle.Message(MessageToDisplay);
-
-
-
             }
-
-            //Character character = new Character();
-            //character.Name = "Je suis le nom du perso";
-            //bulle1 = new Bulle(character);
-            //this.Controls.Add(bulle1);
         }
         public void DetectChar(string line)
         {

@@ -71,6 +71,7 @@ namespace JeuRonron
             panelNameChar.BringToFront();
             if (!String.IsNullOrEmpty(labelCharName.Text))
                 panelNameChar.Controls.Add(labelCharName);
+            panelNameChar.Refresh();
         }
         
         public class Message : Label
@@ -78,11 +79,7 @@ namespace JeuRonron
             Timer t;
             private int counter;
             private bool isTyping = false;
-            public async             Task
-SetText(string text)
-            {
-                this.Text = text;
-            }
+
             public Message() : base()
             {
                 //this.Click += (s, e) => { this.Text = "azfazfazf"; };

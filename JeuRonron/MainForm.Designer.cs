@@ -34,6 +34,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btPrevious = new JeuRonron.RoundButton();
             this.btNext = new JeuRonron.RoundButton();
+            this.panelGame = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // btSelect
@@ -86,12 +87,20 @@
             this.btNext.UseVisualStyleBackColor = true;
             this.btNext.Click += new System.EventHandler(this.btNextChar_Click);
             // 
+            // panelGame
+            // 
+            this.panelGame.Location = new System.Drawing.Point(248, 177);
+            this.panelGame.Name = "panelGame";
+            this.panelGame.Size = new System.Drawing.Size(200, 100);
+            this.panelGame.TabIndex = 8;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.panelGame);
             this.Controls.Add(this.btPrevious);
             this.Controls.Add(this.btNext);
             this.Controls.Add(this.LabelSceneName);
@@ -112,6 +121,7 @@
         private System.Windows.Forms.Timer timer1;
         private RoundButton btPrevious;
         private RoundButton btNext;
+        private System.Windows.Forms.Panel panelGame;
     }
 }
 
