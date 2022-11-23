@@ -4,6 +4,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -20,7 +21,7 @@ namespace JeuRonron
         private Dictionary<string, string> dictChannels = new Dictionary<string, string>();
 
 
-
+        
 
 
 
@@ -46,11 +47,12 @@ namespace JeuRonron
 
         private void btDetectGuild_Click(object sender, EventArgs e)
         {
+            
             comboGuilds.Items.Clear();
             dictGuilds.Clear();
             var client = new RestClient();
             var request = new RestRequest("https://discord.com/api/users/@me/guilds", Method.Get);
-            request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.GzqNMJ.nanwGFdMRGY32bUz12tGAKr1-9X6652KbDQEhY");
+            request.AddHeader("Authorization", ConfigurationManager.AppSettings["token"]);
             RestResponse response = client.Execute(request);
             try
             {
@@ -82,7 +84,7 @@ namespace JeuRonron
             //(sender as ComboBox).SelectedItem
             var client = new RestClient();
             var request = new RestRequest($"https://discord.com/api/v10/guilds/{selectedGuildId}/channels", Method.Get);
-            request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.GzqNMJ.nanwGFdMRGY32bUz12tGAKr1-9X6652KbDQEhY");
+            request.AddHeader("Authorization", ConfigurationManager.AppSettings["token"]);
             RestResponse response = client.Execute(request);
 
             try
@@ -115,7 +117,7 @@ namespace JeuRonron
             string selectedChannel = dictChannels[comboChannels.SelectedItem.ToString()];
             var client = new RestClient();
             var request = new RestRequest($"https://discord.com/api/v9/channels/{selectedChannel}/messages", Method.Get);
-            request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.GzqNMJ.nanwGFdMRGY32bUz12tGAKr1-9X6652KbDQEhY");
+            request.AddHeader("Authorization", ConfigurationManager.AppSettings["token"]);
 
             RestResponse response = client.Execute(request);
             var myDeserializedClass = JsonConvert.DeserializeObject<List<Message>>(response.Content);
