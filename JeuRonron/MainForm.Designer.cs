@@ -29,27 +29,24 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.btSelect = new System.Windows.Forms.Button();
-            this.LabelSceneName = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btPrevious = new JeuRonron.RoundButton();
-            this.btNext = new JeuRonron.RoundButton();
             this.panelGame = new System.Windows.Forms.Panel();
+            this.LabelSceneName = new System.Windows.Forms.Label();
+            this.btSelect = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.panelGame.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btSelect
+            // panelGame
             // 
-            this.btSelect.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btSelect.Font = new System.Drawing.Font("MV Boli", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btSelect.Location = new System.Drawing.Point(0, 412);
-            this.btSelect.Name = "btSelect";
-            this.btSelect.Size = new System.Drawing.Size(800, 38);
-            this.btSelect.TabIndex = 2;
-            this.btSelect.Text = "SELECT";
-            this.btSelect.UseVisualStyleBackColor = true;
-            this.btSelect.Click += new System.EventHandler(this.btSelect_Click);
-            this.btSelect.MouseLeave += new System.EventHandler(this.btSelect_MouseLeave);
-            this.btSelect.MouseHover += new System.EventHandler(this.btSelect_MouseHover);
+            this.panelGame.Controls.Add(this.LabelSceneName);
+            this.panelGame.Controls.Add(this.btSelect);
+            this.panelGame.Controls.Add(this.btPrevious);
+            this.panelGame.Controls.Add(this.btNext);
+            this.panelGame.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelGame.Location = new System.Drawing.Point(0, 0);
+            this.panelGame.Name = "panelGame";
+            this.panelGame.Size = new System.Drawing.Size(800, 450);
+            this.panelGame.TabIndex = 0;
             // 
             // LabelSceneName
             // 
@@ -58,41 +55,26 @@
             this.LabelSceneName.Location = new System.Drawing.Point(0, 0);
             this.LabelSceneName.Name = "LabelSceneName";
             this.LabelSceneName.Size = new System.Drawing.Size(66, 24);
-            this.LabelSceneName.TabIndex = 3;
+            this.LabelSceneName.TabIndex = 9;
             this.LabelSceneName.Text = "label1";
+            // 
+            // btSelect
+            // 
+            this.btSelect.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btSelect.Font = new System.Drawing.Font("MV Boli", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btSelect.Location = new System.Drawing.Point(0, 412);
+            this.btSelect.Name = "btSelect";
+            this.btSelect.Size = new System.Drawing.Size(800, 38);
+            this.btSelect.TabIndex = 8;
+            this.btSelect.Text = "SELECT";
+            this.btSelect.UseVisualStyleBackColor = true;
+            this.btSelect.Click += new System.EventHandler(this.btSelect_Click);
+            this.btSelect.MouseLeave += new System.EventHandler(this.btSelect_MouseLeave);
+            this.btSelect.MouseHover += new System.EventHandler(this.btSelect_MouseHover);
             // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // btPrevious
-            // 
-            this.btPrevious.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btPrevious.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btPrevious.Location = new System.Drawing.Point(12, 193);
-            this.btPrevious.Name = "btPrevious";
-            this.btPrevious.Size = new System.Drawing.Size(68, 53);
-            this.btPrevious.TabIndex = 7;
-            this.btPrevious.UseVisualStyleBackColor = true;
-            this.btPrevious.Click += new System.EventHandler(this.btPreviousChar_Click);
-            // 
-            // btNext
-            // 
-            this.btNext.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btNext.Location = new System.Drawing.Point(720, 205);
-            this.btNext.Name = "btNext";
-            this.btNext.Size = new System.Drawing.Size(68, 53);
-            this.btNext.TabIndex = 6;
-            this.btNext.UseVisualStyleBackColor = true;
-            this.btNext.Click += new System.EventHandler(this.btNextChar_Click);
-            // 
-            // panelGame
-            // 
-            this.panelGame.Location = new System.Drawing.Point(248, 177);
-            this.panelGame.Name = "panelGame";
-            this.panelGame.Size = new System.Drawing.Size(200, 100);
-            this.panelGame.TabIndex = 8;
             // 
             // MainForm
             // 
@@ -101,27 +83,26 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panelGame);
-            this.Controls.Add(this.btPrevious);
-            this.Controls.Add(this.btNext);
-            this.Controls.Add(this.LabelSceneName);
-            this.Controls.Add(this.btSelect);
             this.Name = "MainForm";
             this.Text = "Selection des personnages";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.MainForm_ControlAdded);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
+            this.panelGame.ResumeLayout(false);
+            this.panelGame.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button btSelect;
+
+        private System.Windows.Forms.Panel panelGame;
         private System.Windows.Forms.Label LabelSceneName;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button btSelect;
         private RoundButton btPrevious;
         private RoundButton btNext;
-        private System.Windows.Forms.Panel panelGame;
+        private System.Windows.Forms.Timer timer1;
+        private Scene scene1;
     }
 }
 

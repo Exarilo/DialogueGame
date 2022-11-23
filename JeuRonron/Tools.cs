@@ -20,7 +20,6 @@ namespace JeuRonron
                 filesFound.AddRange(Directory.GetFiles(searchFolder, String.Format("*.{0}", filter), searchOption));
             }
             return filesFound.ToArray();
-
         }
 
     }

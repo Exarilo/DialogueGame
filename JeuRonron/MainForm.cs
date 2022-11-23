@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,8 +10,10 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace JeuRonron
 {
@@ -28,13 +32,14 @@ namespace JeuRonron
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //Bulle bulle = new Bulle();
-            //bulle.message.Text = "salut";
-            //this.Controls.Add(bulle);
             game = new Game();
             game.Load();
+            List<string> listGoogleSceneTitle= getGoogleSheets();
+            if(listGoogleSceneTitle!=null)
+            {
+                AddSceneToGame(listGoogleSceneTitle);
+            }
             RefreshFormWithSelectionnedScene();
-
         }
 
         private void btNextChar_Click(object sender, EventArgs e)
@@ -60,16 +65,17 @@ namespace JeuRonron
         }
         public void RefreshFormWithSelectionnedScene()
         {
-            this.Controls.OfType<PictureBox>().ToList().ForEach(control =>this.Controls.Remove(control));
+            panelGame.Controls.OfType<PictureBox>().ToList().ForEach(control =>panelGame.Controls.Remove(control));
             if (game.listScenes.Count > 0)
             {
                 if (game.listScenes[game.currentSceneIndex].listBackground.Count > 0)
                 {
                     LabelSceneName.Text=game.listScenes[game.currentSceneIndex].SceneName;
                     int randomBackgroundIndex = random.Next(game.listScenes[game.currentSceneIndex].listBackground.Count);
-                    this.BackgroundImage = game.listScenes[game.currentSceneIndex].listBackground[randomBackgroundIndex].Image;
+                    panelGame.BackgroundImage = game.listScenes[game.currentSceneIndex].listBackground[randomBackgroundIndex].Image;
+                    panelGame.BackgroundImageLayout = ImageLayout.Stretch;
                     AddCharImg();
-                    this.Refresh();
+                    panelGame.Refresh();
                 }
             }
         }
@@ -86,23 +92,27 @@ namespace JeuRonron
                 PictureBox pictureBox = new PictureBox();
                 pictureBox.Image = game.listScenes[game.currentSceneIndex].listChar[i].Image;
                 pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                pictureBox.Anchor =   AnchorStyles.Bottom;
+                //if(i==0)
+                //pictureBox.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Top;
+                //else
+                //    pictureBox.Anchor =  AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Top;
+                pictureBox.Anchor = AnchorStyles.Bottom;
+
                 pictureBox.BackColor = Color.Transparent;
                 pictureBox.Width = PictureBoxWidth;
                 pictureBox.Height = PictureBoxHeight;
                 int LocationX =  50 + (PictureBoxWidth * (cptPictureInScreen));
                 int LocationY = this.Height - PictureBoxHeight-btSelect.Height;
                 pictureBox.Location=new Point(LocationX, LocationY);
-                this.Controls.Add(pictureBox);
+                panelGame.Controls.Add(pictureBox);
                 cptPictureInScreen++;
             }
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            this.Controls.OfType<PictureBox>().ToList().ForEach(control => this.Controls.Remove(control));
+            panelGame.Controls.OfType<PictureBox>().ToList().ForEach(control => panelGame.Controls.Remove(control));
             AddCharImg();
-
         }
 
         private void btSelect_MouseHover(object sender, EventArgs e)
@@ -134,21 +144,55 @@ namespace JeuRonron
             }
             else
                 btSelect.BackColor = Color.FromArgb(_colorCounter, _colorCounter, _colorCounter);
-
         }
 
         private void btSelect_Click(object sender, EventArgs e)
         {
-            this.Controls.Clear();
+            panelGame.Visible = false;
             this.Controls.Add(game.listScenes[game.currentSceneIndex]);
-
         }
 
         private void MainForm_ControlAdded(object sender, ControlEventArgs e)
         {
             if (!(e.Control is Scene))
                 return;
-            //game.listScenes[game.currentSceneIndex].InitializeComponents();
+        }
+        private List<string> getGoogleSheets()
+        {
+            var client = new RestClient();
+            var request = new RestRequest("https://sheets.googleapis.com/v4/spreadsheets/1Bfk2PrGBKE7m9CrK4U2E5KakOZrBtqvYpaZUISw_SDQ?alt=json&key=AIzaSyDD1KgLzMRUaNIUQ4yys7GyNDaVh8S4b1w",Method.Get);
+            RestResponse response = client.Execute(request);
+            dynamic json = Newtonsoft.Json.Linq.JObject.Parse(response.Content);
+            if (json == null)
+                return null;
+            if (json["sheets"] == null)
+                return null;
+
+            int nbSheets = json["sheets"].Count;
+            List<string> list = new List<string>();
+            for (int i = 0; i < nbSheets; i++)
+            {
+                var title = json["sheets"][i]["properties"]["title"].Value;
+                list.Add(title);
+            }
+            return list;
+        }
+        private void AddSceneToGame(List<string> listTitle)
+        {
+            var client = new RestClient();
+            for (int i = 0; i < listTitle.Count; i++)
+            {
+                Scene scene = new Scene();
+                game.listScenes.Add(scene);
+                var requestOneSheet = new RestRequest($"https://sheets.googleapis.com/v4/spreadsheets/1Bfk2PrGBKE7m9CrK4U2E5KakOZrBtqvYpaZUISw_SDQ/values/{listTitle[i]}?alt=json&key=AIzaSyDD1KgLzMRUaNIUQ4yys7GyNDaVh8S4b1w", Method.Get);
+                RestResponse responseSheet = client.Execute(requestOneSheet);
+                dynamic jsonSheet = Newtonsoft.Json.Linq.JObject.Parse(responseSheet.Content);
+                int nbLines = jsonSheet["values"][0].Count;
+                for (int j = 0; j < nbLines; j++)
+                {
+
+                }
+            }
         }
     }
 }
