@@ -117,7 +117,7 @@ namespace JeuRonron
             string selectedChannel = dictChannels[comboChannels.SelectedItem.ToString()];
             var client = new RestClient();
             var request = new RestRequest($"https://discord.com/api/v9/channels/{selectedChannel}/messages", Method.Get);
-            request.AddHeader("Authorization", ConfigurationManager.AppSettings["token"]);
+            request.AddHeader("Authorization",  ConfigurationManager.AppSettings["token"]);
 
             RestResponse response = client.Execute(request);
             var myDeserializedClass = JsonConvert.DeserializeObject<List<Message>>(response.Content);
