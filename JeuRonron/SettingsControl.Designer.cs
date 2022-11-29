@@ -124,6 +124,7 @@
             this.comboChannels.Name = "comboChannels";
             this.comboChannels.Size = new System.Drawing.Size(200, 21);
             this.comboChannels.TabIndex = 39;
+            this.comboChannels.SelectedIndexChanged += new System.EventHandler(this.comboChannels_SelectedIndexChanged);
             // 
             // btDetectGuild
             // 
@@ -135,6 +136,7 @@
             this.btDetectGuild.TabIndex = 38;
             this.btDetectGuild.Text = "Detect";
             this.btDetectGuild.UseVisualStyleBackColor = true;
+            this.btDetectGuild.Click += new System.EventHandler(this.btDetectGuild_Click);
             // 
             // label1
             // 
@@ -168,6 +170,7 @@
             this.btAddBot.Size = new System.Drawing.Size(108, 100);
             this.btAddBot.TabIndex = 35;
             this.btAddBot.UseVisualStyleBackColor = true;
+            this.btAddBot.Click += new System.EventHandler(this.btAddBot_Click);
             // 
             // panel3
             // 
