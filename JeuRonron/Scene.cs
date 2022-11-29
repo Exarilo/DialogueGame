@@ -16,7 +16,6 @@ namespace JeuRonron
 {
     public partial class Scene : UserControl
     {
-        private PictureBox pbChar;
 
         public Bulle Bulle { get; set; }
         public string SceneName { get; set; }
@@ -26,12 +25,12 @@ namespace JeuRonron
         public string[] scenario { get; set; }
         private string MessageToDisplay { get; set; }
         public string CharName { get; set; }
-        private SemaphoreSlim semaphoreMessage = new SemaphoreSlim(0);
+        private SemaphoreSlim signal = new SemaphoreSlim(0);
 
         public Scene()
         {
         }
-        public Scene(string path) 
+        public Scene(string path)
         {
             InitializeComponent();
             this.Dock = DockStyle.Fill;
@@ -62,60 +61,33 @@ namespace JeuRonron
             scenario = File.ReadAllLines(path + "\\Scénario.txt");
         }
 
-        protected void MessageClick(object sender, EventArgs e) 
+        protected void MessageClick(object sender, EventArgs e)
         {
-            semaphoreMessage.Release();
-            var panelCharName = Parent.Controls.OfType<Panel>().Where(x => x.Name.Equals("panelCharName")).ToList();
-            foreach (var panel in panelCharName)
-            {
-                this.Parent.Controls.Remove(panel);
-            }
-            Parent.Refresh();
+            signal.Release();
 
         }
         private async void Scene_Load(object sender, EventArgs e)
         {
             foreach (string line in scenario)
-            {        
+            {
                 DetectChar(line);
                 var detectedChar = listChar.Where(x => x.Name.Contains(CharName)).ToList();
                 if (detectedChar.Any())
                 {
                     Bulle bulle = new Bulle(detectedChar[0]);
                     this.Controls.Add(bulle);
-                    AddPictureBoxWithDetectedChar(bulle);
                     bulle.message.Click += new EventHandler(MessageClick);
                     bulle.message.Text = MessageToDisplay;
-                    await semaphoreMessage.WaitAsync();
+                    await signal.WaitAsync();
                     this.Controls.Remove(bulle);
-
+                    var panelCharName = Parent.Controls.OfType<Panel>().Where(x => x.Name.Equals("panelCharName")).ToList();
+                    foreach (var panel in panelCharName)
+                    {
+                        this.Parent.Controls.Remove(panel);
+                    }
+                    Parent.Refresh();
                 }
             }
-        }
-        public void AddPictureBoxWithDetectedChar(Bulle bulle)
-        {
-            var detectedChar = listChar.Where((x) => x.Name.Contains(CharName)).ToList();
-            if (detectedChar.Any())
-            {
-                if (detectedChar[0].Image != null)
-                {
-                    pbChar.BorderStyle = BorderStyle.FixedSingle;
-                    int PictureBoxHeight = (this.Parent.Height / 2) + 50;
-                    int PictureBoxWidth = this.ClientSize.Width/ (listChar.Count - listChar.Where(x=>x.Image==null).Count());
-                    pbChar.SizeMode = PictureBoxSizeMode.StretchImage;
-                    pbChar.Visible = true;
-                    pbChar.Image = detectedChar[0].Image;
-                    pbChar.Size= new Size(PictureBoxWidth, PictureBoxHeight);
-
-                    int LocationX = (this.ClientSize.Width / 2);
-                    int LocationY = this.Height - PictureBoxHeight - bulle.Height;
-                    pbChar.Location = new Point(LocationX, LocationY);
-                    //pbChar.Location= new Point(this.ClientSize.Width / 2, this.Parent.Height - PictureBoxHeight - bulle.Height);
-                    pbChar.Refresh();
-                    return;
-                }
-            }
-            pbChar.Visible = false;
         }
         public void DetectChar(string line)
         {
@@ -138,7 +110,7 @@ namespace JeuRonron
                             int levenshteinDistance = Fastenshtein.Levenshtein.Distance(character.Name, match.Value.Substring(1, match.Value.Length - 2).ToLower());
                             if (levenshteinDistance <= 1)
                             {
-                                MessageToDisplay = line.Replace("[" + match.Value.Substring(1, match.Value.Length - 2) + "]", "");
+                                MessageToDisplay = line.Replace("[" + character.Name + "]", "");
                                 CharName = character.Name;
                                 isCharFind = true;
                                 return;
@@ -161,30 +133,15 @@ namespace JeuRonron
 
         private void InitializeComponent()
         {
-            this.pbChar = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pbChar)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pbChar
-            // 
-            this.pbChar.BackColor = System.Drawing.Color.Transparent;
-            this.pbChar.Location = new System.Drawing.Point(117, 100);
-            this.pbChar.Name = "pbChar";
-            this.pbChar.Size = new System.Drawing.Size(169, 142);
-            this.pbChar.TabIndex = 0;
-            this.pbChar.TabStop = false;
-            this.pbChar.Visible = false;
             // 
             // Scene
             // 
-            this.Controls.Add(this.pbChar);
             this.Name = "Scene";
             this.Size = new System.Drawing.Size(434, 368);
             this.Load += new System.EventHandler(this.Scene_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pbChar)).EndInit();
             this.ResumeLayout(false);
 
         }
-
     }
 }

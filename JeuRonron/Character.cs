@@ -16,11 +16,20 @@ namespace JeuRonron
         public Bitmap Image { get; set; }
         public List<string> Dialogues { get; set; } = new List<string>();
 
+        public Character()
+        {
+         
+        }
         public Character(string name)
         {
             this.Name = name;
         }
-        
+
+        public Character(Bitmap image)
+        {
+            this.Image = image;
+        }
+
         public Character(string path,Bitmap image)
         {
             this.Image = image;

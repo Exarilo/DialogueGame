@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,5 +24,28 @@ namespace JeuRonron
             return filesFound.ToArray();
         }
 
+        public static void DiscordMessagesToFile(List<Message> messages,string channelName)
+        {
+            var rootPath = Directory.GetCurrentDirectory() + $"\\Conversations\\{channelName}";
+            var scenarioPath = rootPath + "\\Scénario.txt";
+            var scenario = "";
+
+            if (!Directory.Exists(rootPath))
+            {
+                Directory.CreateDirectory(rootPath);
+            }
+            if (File.Exists(scenarioPath))
+            {
+                File.Delete(scenarioPath);
+            }
+
+            foreach (var message in messages)
+            {
+                message.SaveCharImg(rootPath);
+                if(!String.IsNullOrEmpty(message.content))
+                    scenario += $"[{message.author.username}]{message.content}{Environment.NewLine}";
+            }
+            File.AppendAllText(scenarioPath, scenario, Encoding.UTF8);
+        }
     }
 }

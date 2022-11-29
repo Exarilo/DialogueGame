@@ -19,41 +19,57 @@ namespace JeuRonron
 {
     public partial class MainForm : Form
     {
-        private int _colorCounter = 250;
         public Game game;
         public Random random = new Random();
         public Bulle bulle1;
         public MainForm()
         {
             InitializeComponent();
-            btPrevious.BackgroundImage = new Bitmap(Directory.GetCurrentDirectory() + "\\GraphicComponents\\button_previous.png");
-            btNext.BackgroundImage = new Bitmap(Directory.GetCurrentDirectory() + "\\GraphicComponents\\button_next.png");
+            //btPrevious.BackgroundImage = new Bitmap(Directory.GetCurrentDirectory() + "\\GraphicComponents\\button_previous.png");
+            //btNext.BackgroundImage = new Bitmap(Directory.GetCurrentDirectory() + "\\GraphicComponents\\button_next.png");
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             game = new Game();
             game.Load();
-            List<string> listGoogleSceneTitle= getGoogleSheets();
-            if(listGoogleSceneTitle!=null)
-            {
-                AddSceneToGame(listGoogleSceneTitle);
-            }
-            RefreshFormWithSelectionnedScene();
+            convSelectionControl.AddCharacters(game.listScenes[game.currentSceneIndex].listChar);
+
+
+            convSelectionControl.ButtonNext.Click += BtNextClick;
+            convSelectionControl.ButtonPrevious.Click += BtPreviousClick;
+            convSelectionControl.ButtonSelect.Click += BtSelectClick;
+            convSelectionControl.ButtonSettings.Click += BtSettingsClick;
         }
 
-        private void btNextChar_Click(object sender, EventArgs e)
+        private void BtSettingsClick(object sender, EventArgs e)
+        {
+            if (settingsControl.Visible == true)
+            {
+                settingsControl.Visible = false;
+                settingsControl.SendToBack();
+            }
+
+            else
+            {
+                settingsControl.BringToFront();
+                settingsControl.Visible = true;
+            }
+
+        }
+
+
+        private void BtNextClick(object sender, EventArgs e)
         {
             if (game.currentSceneIndex < game.listScenes[game.currentSceneIndex].listBackground.Count)
                 game.currentSceneIndex++;
 
             else
-                game.currentSceneIndex=0;
-            RefreshFormWithSelectionnedScene();
+                game.currentSceneIndex = 0;
+
+            convSelectionControl.SwapCharacters(game.listScenes[game.currentSceneIndex].listChar);
         }
-
-
-        private void btPreviousChar_Click(object sender, EventArgs e)
+        private void BtPreviousClick(object sender, EventArgs e)
         {
             if (game.currentSceneIndex > 0)
                 game.currentSceneIndex--;
@@ -61,138 +77,33 @@ namespace JeuRonron
             else
                 game.currentSceneIndex = game.listScenes[game.currentSceneIndex].listBackground.Count;
 
-            RefreshFormWithSelectionnedScene();
+            convSelectionControl.SwapCharacters(game.listScenes[game.currentSceneIndex].listChar);
         }
-        public void RefreshFormWithSelectionnedScene()
-        {
-            panelGame.Controls.OfType<PictureBox>().ToList().ForEach(control =>panelGame.Controls.Remove(control));
-            if (game.listScenes.Count > 0)
-            {
-                if (game.listScenes[game.currentSceneIndex].listBackground.Count > 0)
-                {
-                    LabelSceneName.Text=game.listScenes[game.currentSceneIndex].SceneName;
-                    int randomBackgroundIndex = random.Next(game.listScenes[game.currentSceneIndex].listBackground.Count);
-                    panelGame.BackgroundImage = game.listScenes[game.currentSceneIndex].listBackground[randomBackgroundIndex].Image;
-                    panelGame.BackgroundImageLayout = ImageLayout.Stretch;
-                    AddCharImg();
-                    panelGame.Refresh();
-                }
-            }
-        }
-        public void AddCharImg()
-        {
-            int numberOfNullCharImage = game.listScenes[game.currentSceneIndex].listChar.Where(x => x.Image == null).Count();
-            int PictureBoxHeight = (this.Height / 2)+50;
-            int PictureBoxWidth = this.Width / (game.listScenes[game.currentSceneIndex].listChar.Count- numberOfNullCharImage);
-            int cptPictureInScreen = 0;
-            for (int i = 0; i < game.listScenes[game.currentSceneIndex].listChar.Count; i++)
-            {
-                if (game.listScenes[game.currentSceneIndex].listChar[i].Image == null)
-                    continue;
-                PictureBox pictureBox = new PictureBox();
-                pictureBox.Image = game.listScenes[game.currentSceneIndex].listChar[i].Image;
-                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                //if(i==0)
-                //pictureBox.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Top;
-                //else
-                //    pictureBox.Anchor =  AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Top;
-                pictureBox.Anchor = AnchorStyles.Bottom;
 
-                pictureBox.BackColor = Color.Transparent;
-                pictureBox.Width = PictureBoxWidth;
-                pictureBox.Height = PictureBoxHeight;
-                int LocationX =  50 + (PictureBoxWidth * (cptPictureInScreen));
-                int LocationY = this.Height - PictureBoxHeight-btSelect.Height;
-                pictureBox.Location=new Point(LocationX, LocationY);
-                panelGame.Controls.Add(pictureBox);
-                cptPictureInScreen++;
-            }
+        private void BtSelectClick(object sender, EventArgs e)
+        {
+            this.Text = game.listScenes[game.currentSceneIndex].SceneName;
+            convSelectionControl.Visible = false;
+            this.Controls.Add(game.listScenes[game.currentSceneIndex]);
         }
+
+
+
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            panelGame.Controls.OfType<PictureBox>().ToList().ForEach(control => panelGame.Controls.Remove(control));
-            AddCharImg();
+            // panelGame.Controls.OfType<PictureBox>().ToList().ForEach(control => panelGame.Controls.Remove(control));
+            ///AddCharImg();
         }
 
-        private void btSelect_MouseHover(object sender, EventArgs e)
-        {
-            _colorCounter = 250;
-            btSelect.UseVisualStyleBackColor = false;
-            timer1.Start();
-            btSelect.ForeColor = Color.White;
-        }
 
-        private void btSelect_MouseLeave(object sender, EventArgs e)
-        {
-            timer1.Stop();
-            _colorCounter = 250;
 
-            btSelect.UseVisualStyleBackColor = true;
-            btSelect.ForeColor = Color.Black;
-            btSelect.BackColor = SystemColors.Control;
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            _colorCounter -= 25;
-
-            if (_colorCounter == 0)
-            {
-                timer1.Stop();
-                _colorCounter = 250;
-            }
-            else
-                btSelect.BackColor = Color.FromArgb(_colorCounter, _colorCounter, _colorCounter);
-        }
-
-        private void btSelect_Click(object sender, EventArgs e)
-        {
-            panelGame.Visible = false;
-            this.Controls.Add(game.listScenes[game.currentSceneIndex]);
-        }
 
         private void MainForm_ControlAdded(object sender, ControlEventArgs e)
         {
             if (!(e.Control is Scene))
                 return;
         }
-        private List<string> getGoogleSheets()
-        {
-            var client = new RestClient();
-            var request = new RestRequest("https://sheets.googleapis.com/v4/spreadsheets/1Bfk2PrGBKE7m9CrK4U2E5KakOZrBtqvYpaZUISw_SDQ?alt=json&key=AIzaSyDD1KgLzMRUaNIUQ4yys7GyNDaVh8S4b1w",Method.Get);
-            RestResponse response = client.Execute(request);
-            dynamic json = Newtonsoft.Json.Linq.JObject.Parse(response.Content);
-            if (json == null)
-                return null;
-            if (json["sheets"] == null)
-                return null;
 
-            int nbSheets = json["sheets"].Count;
-            List<string> list = new List<string>();
-            for (int i = 0; i < nbSheets; i++)
-            {
-                var title = json["sheets"][i]["properties"]["title"].Value;
-                list.Add(title);
-            }
-            return list;
-        }
-        private void AddSceneToGame(List<string> listTitle)
-        {
-            var client = new RestClient();
-            for (int i = 0; i < listTitle.Count; i++)
-            {
-                Scene scene = new Scene();
-                game.listScenes.Add(scene);
-                var requestOneSheet = new RestRequest($"https://sheets.googleapis.com/v4/spreadsheets/1Bfk2PrGBKE7m9CrK4U2E5KakOZrBtqvYpaZUISw_SDQ/values/{listTitle[i]}?alt=json&key=AIzaSyDD1KgLzMRUaNIUQ4yys7GyNDaVh8S4b1w", Method.Get);
-                RestResponse responseSheet = client.Execute(requestOneSheet);
-                dynamic jsonSheet = Newtonsoft.Json.Linq.JObject.Parse(responseSheet.Content);
-                int nbLines = jsonSheet["values"][0].Count;
-                for (int j = 0; j < nbLines; j++)
-                {
-
-                }
-            }
-        }
     }
 }

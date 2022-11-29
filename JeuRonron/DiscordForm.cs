@@ -52,7 +52,7 @@ namespace JeuRonron
             dictGuilds.Clear();
             var client = new RestClient();
             var request = new RestRequest("https://discord.com/api/users/@me/guilds", Method.Get);
-            request.AddHeader("Authorization", ConfigurationManager.AppSettings["token"]);
+            request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.G68qyD.oiLj_cgVvPe9Z8fxrIXE8WQ1QavRlLaW4NEES4");
             RestResponse response = client.Execute(request);
             try
             {
@@ -84,7 +84,7 @@ namespace JeuRonron
             //(sender as ComboBox).SelectedItem
             var client = new RestClient();
             var request = new RestRequest($"https://discord.com/api/v10/guilds/{selectedGuildId}/channels", Method.Get);
-            request.AddHeader("Authorization", ConfigurationManager.AppSettings["token"]);
+            request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.G68qyD.oiLj_cgVvPe9Z8fxrIXE8WQ1QavRlLaW4NEES4");
             RestResponse response = client.Execute(request);
 
             try
@@ -117,11 +117,14 @@ namespace JeuRonron
             string selectedChannel = dictChannels[comboChannels.SelectedItem.ToString()];
             var client = new RestClient();
             var request = new RestRequest($"https://discord.com/api/v9/channels/{selectedChannel}/messages", Method.Get);
-            request.AddHeader("Authorization",  ConfigurationManager.AppSettings["token"]);
+            request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.G68qyD.oiLj_cgVvPe9Z8fxrIXE8WQ1QavRlLaW4NEES4");
 
             RestResponse response = client.Execute(request);
-            var myDeserializedClass = JsonConvert.DeserializeObject<List<Message>>(response.Content);
-            //https://cdn.discordapp.com/avatars/[id]/[avatar].png?size=2048
+            var messages = JsonConvert.DeserializeObject<List<Message>>(response.Content);
+
+            Tools.DiscordMessagesToFile(messages, comboChannels.SelectedItem.ToString());
+
+
         }
     }
 }

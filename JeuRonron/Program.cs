@@ -16,7 +16,7 @@ namespace JeuRonron
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DiscordForm());
+            Application.Run(new MainForm());
         }
     }
 }
