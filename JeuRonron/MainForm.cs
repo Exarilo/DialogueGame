@@ -25,7 +25,6 @@ namespace JeuRonron
            
             charSelectionControl.AddCharacters(game.listScenes[game.currentSceneIndex].listChar);
 
-
             charSelectionControl.ButtonNext.Click += BtNextClick;
             charSelectionControl.ButtonPrevious.Click += BtPreviousClick;
             charSelectionControl.ButtonSelect.Click += BtSelectClick;
