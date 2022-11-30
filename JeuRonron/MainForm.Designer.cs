@@ -40,7 +40,7 @@
             this.convSelectionControl.Location = new System.Drawing.Point(0, 0);
             this.convSelectionControl.Name = "convSelectionControl";
             this.convSelectionControl.Size = new System.Drawing.Size(800, 450);
-            this.convSelectionControl.TabIndex = 0;
+            this.charSelectionControl.TabIndex = 0;
             // 
             // settingsControl
             // 
@@ -70,6 +70,6 @@
         private System.Windows.Forms.Timer timer1;
         private Scene scene1;
         private CharSelectionControl convSelectionControl;
-        private SettingsControl settingsControl;
+        private CharSelectionControl charSelectionControl;
     }
 }
