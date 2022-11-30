@@ -30,16 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.convSelectionControl = new JeuRonron.CharSelectionControl();
+            this.charSelectionControl = new JeuRonron.CharSelectionControl();
             this.settingsControl = new JeuRonron.SettingsControl();
             this.SuspendLayout();
             // 
-            // convSelectionControl
+            // charSelectionControl
             // 
-            this.convSelectionControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.convSelectionControl.Location = new System.Drawing.Point(0, 0);
-            this.convSelectionControl.Name = "convSelectionControl";
-            this.convSelectionControl.Size = new System.Drawing.Size(800, 450);
+            this.charSelectionControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.charSelectionControl.Location = new System.Drawing.Point(0, 0);
+            this.charSelectionControl.Name = "charSelectionControl";
+            this.charSelectionControl.Size = new System.Drawing.Size(800, 450);
             this.charSelectionControl.TabIndex = 0;
             // 
             // settingsControl
@@ -57,7 +57,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.settingsControl);
-            this.Controls.Add(this.convSelectionControl);
+            this.Controls.Add(this.charSelectionControl);
             this.Name = "MainForm";
             this.Text = "Selection des personnages";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -69,7 +69,7 @@
         #endregion
         private System.Windows.Forms.Timer timer1;
         private Scene scene1;
-        private CharSelectionControl convSelectionControl;
         private CharSelectionControl charSelectionControl;
+        private SettingsControl settingsControl;
     }
 }

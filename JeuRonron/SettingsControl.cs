@@ -17,12 +17,19 @@ namespace JeuRonron
     {
         private Dictionary<string, string> dictGuilds = new Dictionary<string, string>();
         private Dictionary<string, string> dictChannels = new Dictionary<string, string>();
+        private Image lastVolGImgBeforeMute = Properties.Resources.vol2;
+        private Image lastVolBImgBeforeMute = Properties.Resources.vol2;
+
+
 
         public SettingsControl()
         {
             InitializeComponent();
             this.Dock = DockStyle.Fill;
+            this.Visible = false;
             this.SendToBack();
+            btVolG.Tag = "";
+            btVolB.Tag = "";
         }
 
         private void SettingsControl_Load(object sender, EventArgs e)
@@ -30,80 +37,13 @@ namespace JeuRonron
 
         }
 
-        private void btDiscord_Click(object sender, EventArgs e)
-        {
-            if (panelDiscord.Visible)
-            {
-                btDiscord.BackColor = default(Color);
-                panelDiscord.Visible = false;
-            }
-            else
-            {
-                btAudio.BackColor = default(Color);
-                btDiscord.BackColor = Color.LightGray;
-                panelAudio.Visible = false;
-                panelDiscord.Visible = true;
-            }
-        }
-
-        private void btAudio_Click(object sender, EventArgs e)
-        {
-            if (panelAudio.Visible)
-            {
-                btAudio.BackColor = default(Color);
-                panelAudio.Visible = false;
-            }
-            else
-            {
-                btDiscord.BackColor = default(Color);
-                btAudio.BackColor = Color.LightGray;
-                panelDiscord.Visible = false;
-                panelAudio.Visible = true;
-            }
-                
-        }
-
         private void btReturn_Click(object sender, EventArgs e)
         {
             this.Visible = false;
         }
 
-        private void btVolG_Click(object sender, EventArgs e)
-        {
-            if(btVolG.Image != Properties.Resources.muet)
-                btVolG.Image = Properties.Resources.muet;
-            else
-            {
-
-            }
-        }
-
-        private void trackVolG_ValueChanged(object sender, EventArgs e)
-        {
-            int value = (sender as TrackBar).Value;
-            if (value > 66 && value <=100)
-            {
-                btVolG.Image = Properties.Resources.vol3;
-                return;
-            }
-            else if(value > 33 && value <= 66)
-            {
-                btVolG.Image = Properties.Resources.vol2;
 
 
-                return;
-            }
-            else if (value>0 && value <= 33)
-            {
-                btVolG.Image = Properties.Resources.vol1;
-                return;
-            }
-            else
-            {
-                btVolG.Image = Properties.Resources.muet;
-                return;
-            }
-        }
 
         private void btAddBot_Click(object sender, EventArgs e)
         {
@@ -116,7 +56,7 @@ namespace JeuRonron
             dictGuilds.Clear();
             var client = new RestClient();
             var request = new RestRequest("https://discord.com/api/users/@me/guilds", Method.Get);
-            request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.GzqNMJ.nanwGFdMRGY32bUz12tGAKr1-9X6652KbDQEhY");
+            request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.GkixZw.UyqBuxXfgBeVRsHLqUYLq5k9Q4es--l9ObHk_Y");
             RestResponse response = client.Execute(request);
             try
             {
@@ -148,7 +88,7 @@ namespace JeuRonron
             //(sender as ComboBox).SelectedItem
             var client = new RestClient();
             var request = new RestRequest($"https://discord.com/api/v10/guilds/{selectedGuildId}/channels", Method.Get);
-            request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.GzqNMJ.nanwGFdMRGY32bUz12tGAKr1-9X6652KbDQEhY");
+            request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.GkixZw.UyqBuxXfgBeVRsHLqUYLq5k9Q4es--l9ObHk_Y");
             RestResponse response = client.Execute(request);
 
             try
@@ -177,7 +117,107 @@ namespace JeuRonron
 
         private void btImportConv_Click(object sender, EventArgs e)
         {
+            try
+            {
+                string selectedChannel = dictChannels[comboChannels.SelectedItem.ToString()];
+                var client = new RestClient();
+                var request = new RestRequest($"https://discord.com/api/v9/channels/{selectedChannel}/messages", Method.Get);
+                request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.GkixZw.UyqBuxXfgBeVRsHLqUYLq5k9Q4es--l9ObHk_Y");
 
+                RestResponse response = client.Execute(request);
+                var messages = JsonConvert.DeserializeObject<List<Message>>(response.Content);
+
+                Tools.DiscordMessagesToFile(messages, comboChannels.SelectedItem.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void trackVolB_ValueChanged(object sender, EventArgs e)
+        {
+            int value = (sender as TrackBar).Value;
+            labVolB.Text = value.ToString();
+            if (value > 66 && value <= 100)
+            {
+                btVolB.BackgroundImage = Properties.Resources.vol3;
+                return;
+            }
+            else if (value > 33 && value <= 66)
+            {
+                btVolB.BackgroundImage = Properties.Resources.vol2;
+                return;
+            }
+            else if (value > 0 && value <= 33)
+            {
+                btVolB.BackgroundImage = Properties.Resources.vol1;
+                return;
+            }
+            else
+            {
+                btVolB.BackgroundImage = Properties.Resources.muet;
+                return;
+            }
+        }
+
+        private void trackVolG_ValueChanged(object sender, EventArgs e)
+        {
+            int value = (sender as TrackBar).Value;
+            labVolG.Text = value.ToString();
+            if (value > 66 && value <= 100)
+            {
+                btVolG.BackgroundImage = Properties.Resources.vol3;
+                return;
+            }
+            else if (value > 33 && value <= 66)
+            {
+                btVolG.BackgroundImage = Properties.Resources.vol2;
+
+
+                return;
+            }
+            else if (value > 0 && value <= 33)
+            {
+                btVolG.BackgroundImage = Properties.Resources.vol1;
+                return;
+            }
+            else
+            {
+                btVolG.BackgroundImage = Properties.Resources.muet;
+                return;
+            }
+        }
+
+        private void btVolB_Click(object sender, EventArgs e)
+        {
+            if (btVolB.Tag.ToString() != "mute")
+            {
+                lastVolBImgBeforeMute = btVolB.BackgroundImage;
+                btVolB.Tag = "mute";
+                btVolB.BackgroundImage = Properties.Resources.muet;
+            }
+
+            else
+            {
+                btVolB.Tag = "";
+                btVolB.BackgroundImage = lastVolBImgBeforeMute;
+            }
+        }
+        private void btVolG_Click(object sender, EventArgs e)
+        {
+            if (btVolG.Tag.ToString() != "mute")
+            {
+                lastVolGImgBeforeMute = btVolG.BackgroundImage;
+                btVolG.Tag = "mute";
+                btVolG.BackgroundImage = Properties.Resources.muet;
+            }
+
+            else
+            {
+                btVolG.Tag = "";
+                btVolG.BackgroundImage = lastVolGImgBeforeMute;
+            }
         }
     }
 }

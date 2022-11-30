@@ -1,19 +1,7 @@
-﻿using Newtonsoft.Json;
-using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+
+//ACTUALISER APRES IMPORT CONV
 
 namespace JeuRonron
 {
@@ -25,6 +13,7 @@ namespace JeuRonron
         public MainForm()
         {
             InitializeComponent();
+
             //btPrevious.BackgroundImage = new Bitmap(Directory.GetCurrentDirectory() + "\\GraphicComponents\\button_previous.png");
             //btNext.BackgroundImage = new Bitmap(Directory.GetCurrentDirectory() + "\\GraphicComponents\\button_next.png");
         }
@@ -33,13 +22,14 @@ namespace JeuRonron
         {
             game = new Game();
             game.Load();
-            convSelectionControl.AddCharacters(game.listScenes[game.currentSceneIndex].listChar);
+           
+            charSelectionControl.AddCharacters(game.listScenes[game.currentSceneIndex].listChar);
 
 
-            convSelectionControl.ButtonNext.Click += BtNextClick;
-            convSelectionControl.ButtonPrevious.Click += BtPreviousClick;
-            convSelectionControl.ButtonSelect.Click += BtSelectClick;
-            convSelectionControl.ButtonSettings.Click += BtSettingsClick;
+            charSelectionControl.ButtonNext.Click += BtNextClick;
+            charSelectionControl.ButtonPrevious.Click += BtPreviousClick;
+            charSelectionControl.ButtonSelect.Click += BtSelectClick;
+            charSelectionControl.ButtonSettings.Click += BtSettingsClick;
         }
 
         private void BtSettingsClick(object sender, EventArgs e)
@@ -55,19 +45,18 @@ namespace JeuRonron
                 settingsControl.BringToFront();
                 settingsControl.Visible = true;
             }
-
         }
 
 
         private void BtNextClick(object sender, EventArgs e)
         {
-            if (game.currentSceneIndex < game.listScenes[game.currentSceneIndex].listBackground.Count)
+            if (game.currentSceneIndex < game.listScenes.Count-1)
                 game.currentSceneIndex++;
 
             else
                 game.currentSceneIndex = 0;
 
-            convSelectionControl.SwapCharacters(game.listScenes[game.currentSceneIndex].listChar);
+            charSelectionControl.SwapCharacters(game.listScenes[game.currentSceneIndex].listChar);
         }
         private void BtPreviousClick(object sender, EventArgs e)
         {
@@ -75,15 +64,15 @@ namespace JeuRonron
                 game.currentSceneIndex--;
 
             else
-                game.currentSceneIndex = game.listScenes[game.currentSceneIndex].listBackground.Count;
+                game.currentSceneIndex = game.listScenes.Count-1;
 
-            convSelectionControl.SwapCharacters(game.listScenes[game.currentSceneIndex].listChar);
+            charSelectionControl.SwapCharacters(game.listScenes[game.currentSceneIndex].listChar);
         }
 
         private void BtSelectClick(object sender, EventArgs e)
         {
             this.Text = game.listScenes[game.currentSceneIndex].SceneName;
-            convSelectionControl.Visible = false;
+            charSelectionControl.Visible = false;
             this.Controls.Add(game.listScenes[game.currentSceneIndex]);
         }
 
@@ -104,6 +93,7 @@ namespace JeuRonron
             if (!(e.Control is Scene))
                 return;
         }
+
 
     }
 }

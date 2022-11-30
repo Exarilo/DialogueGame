@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static JeuRonron.Bulle;
 
 namespace JeuRonron
 {
@@ -39,12 +40,13 @@ namespace JeuRonron
                 File.Delete(scenarioPath);
             }
 
-            foreach (var message in messages)
+            for(int i = messages.Count-1; i >= 0; i--)
             {
-                message.SaveCharImg(rootPath);
-                if(!String.IsNullOrEmpty(message.content))
-                    scenario += $"[{message.author.username}]{message.content}{Environment.NewLine}";
+                messages[i].SaveCharImg(rootPath);
+                if (!String.IsNullOrEmpty(messages[i].content))
+                    scenario += $"[{messages[i].author.username}]{messages[i].content}{Environment.NewLine}";
             }
+
             File.AppendAllText(scenarioPath, scenario, Encoding.UTF8);
         }
     }
