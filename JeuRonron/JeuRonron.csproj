@@ -75,6 +75,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionHelper.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="Bulle.cs">
       <SubType>Component</SubType>
@@ -88,6 +89,7 @@
       <DependentUpon>CustomCharImgForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Discord.cs" />
+    <Compile Include="PictureBoxAnimation.cs" />
     <Compile Include="TestPictureBoxAnimation.cs">
       <SubType>Form</SubType>
     </Compile>
