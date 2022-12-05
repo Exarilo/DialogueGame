@@ -147,7 +147,5 @@ namespace JeuRonron
             //SettingsForm settingsForm = new SettingsForm();
             //settingsForm.ShowDialog();
         }
-
-
     }
 }

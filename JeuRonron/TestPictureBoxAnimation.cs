@@ -109,18 +109,6 @@ namespace JeuRonron
         private void TestPictureBoxAnimation_Load(object sender, EventArgs e)
         {
 
-            Action<string> aa = Console.WriteLine;
-
-
-            Action a = Console.WriteLine;
-            Action b = MessageBox.Show;
-            string[] buildings = { "école", "ecole" };
-            bool ContainBuilding(string message) => buildings.Any(x => message.Contains(x));
-
-            Action c(string message) => buildings.Any(x => message.Contains(x)) ? a : b;
-
-            c("je suis une ecole")?.Invoke();
-
 
         }
     }

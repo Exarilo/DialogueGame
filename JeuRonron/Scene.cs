@@ -71,6 +71,7 @@ namespace JeuRonron
             foreach (string line in scenario)
             {
                 DetectChar(line);
+                //TODO NOT NULL
                 var detectedChar = listChar.Where(x => x.Name.Contains(CharName)).ToList();
                 if (detectedChar.Any())
                 {
