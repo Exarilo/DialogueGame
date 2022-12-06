@@ -16,6 +16,8 @@ namespace JeuRonron
 {
     public partial class Scene : UserControl
     {
+        private PictureBox pbChar;
+        private PictureBox pbBackground;
 
         public Bulle Bulle { get; set; }
         public string SceneName { get; set; }
@@ -75,6 +77,19 @@ namespace JeuRonron
                 var detectedChar = listChar.Where(x => x.Name.Contains(CharName)).ToList();
                 if (detectedChar.Any())
                 {
+                    if (detectedChar[0].Image != null)
+                    {
+                        var messageContainChar = listChar.Where(x => MessageToDisplay.Contains(x.Name));
+                        if (messageContainChar.Any())
+                        {
+
+                        }
+                        pbChar.Visible = true;
+                        pbChar.BackgroundImage = detectedChar[0].Image;
+
+                    }
+                    else
+                        pbChar.Visible = false;
                     Bulle bulle = new Bulle(detectedChar[0]);
                     this.Controls.Add(bulle);
                     bulle.message.Click += new EventHandler(MessageClick);
@@ -134,13 +149,41 @@ namespace JeuRonron
 
         private void InitializeComponent()
         {
+            this.pbChar = new System.Windows.Forms.PictureBox();
+            this.pbBackground = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pbChar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBackground)).BeginInit();
             this.SuspendLayout();
+            // 
+            // pbChar
+            // 
+            this.pbChar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pbChar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbChar.Location = new System.Drawing.Point(274, 147);
+            this.pbChar.Name = "pbChar";
+            this.pbChar.Size = new System.Drawing.Size(307, 342);
+            this.pbChar.TabIndex = 0;
+            this.pbChar.TabStop = false;
+            // 
+            // pbBackground
+            // 
+            this.pbBackground.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbBackground.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbBackground.Location = new System.Drawing.Point(0, 0);
+            this.pbBackground.Name = "pbBackground";
+            this.pbBackground.Size = new System.Drawing.Size(816, 489);
+            this.pbBackground.TabIndex = 1;
+            this.pbBackground.TabStop = false;
             // 
             // Scene
             // 
+            this.Controls.Add(this.pbChar);
+            this.Controls.Add(this.pbBackground);
             this.Name = "Scene";
-            this.Size = new System.Drawing.Size(434, 368);
+            this.Size = new System.Drawing.Size(816, 489);
             this.Load += new System.EventHandler(this.Scene_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pbChar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBackground)).EndInit();
             this.ResumeLayout(false);
 
         }

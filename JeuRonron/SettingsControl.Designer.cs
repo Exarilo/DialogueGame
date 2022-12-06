@@ -44,6 +44,8 @@
             this.comboGuilds = new System.Windows.Forms.ComboBox();
             this.btAddBot = new System.Windows.Forms.Button();
             this.AudioPage = new System.Windows.Forms.TabPage();
+            this.labVolB = new System.Windows.Forms.Label();
+            this.labVolG = new System.Windows.Forms.Label();
             this.btVolB = new System.Windows.Forms.Button();
             this.btVolG = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -51,8 +53,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.trackVolB = new System.Windows.Forms.TrackBar();
             this.trackVolG = new System.Windows.Forms.TrackBar();
-            this.labVolG = new System.Windows.Forms.Label();
-            this.labVolB = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabSettings.SuspendLayout();
@@ -252,10 +252,30 @@
             this.AudioPage.Location = new System.Drawing.Point(4, 34);
             this.AudioPage.Name = "AudioPage";
             this.AudioPage.Padding = new System.Windows.Forms.Padding(3);
-            this.AudioPage.Size = new System.Drawing.Size(894, 523);
+            this.AudioPage.Size = new System.Drawing.Size(808, 451);
             this.AudioPage.TabIndex = 1;
             this.AudioPage.Text = "Audio";
             this.AudioPage.UseVisualStyleBackColor = true;
+            // 
+            // labVolB
+            // 
+            this.labVolB.AutoSize = true;
+            this.labVolB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labVolB.Location = new System.Drawing.Point(225, 173);
+            this.labVolB.Name = "labVolB";
+            this.labVolB.Size = new System.Drawing.Size(21, 13);
+            this.labVolB.TabIndex = 60;
+            this.labVolB.Text = "50";
+            // 
+            // labVolG
+            // 
+            this.labVolG.AutoSize = true;
+            this.labVolG.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labVolG.Location = new System.Drawing.Point(225, 113);
+            this.labVolG.Name = "labVolG";
+            this.labVolG.Size = new System.Drawing.Size(21, 13);
+            this.labVolG.TabIndex = 59;
+            this.labVolG.Text = "50";
             // 
             // btVolB
             // 
@@ -338,26 +358,6 @@
             this.trackVolG.TabIndex = 44;
             this.trackVolG.Value = 50;
             this.trackVolG.ValueChanged += new System.EventHandler(this.trackVolG_ValueChanged);
-            // 
-            // labVolG
-            // 
-            this.labVolG.AutoSize = true;
-            this.labVolG.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labVolG.Location = new System.Drawing.Point(225, 113);
-            this.labVolG.Name = "labVolG";
-            this.labVolG.Size = new System.Drawing.Size(21, 13);
-            this.labVolG.TabIndex = 59;
-            this.labVolG.Text = "50";
-            // 
-            // labVolB
-            // 
-            this.labVolB.AutoSize = true;
-            this.labVolB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labVolB.Location = new System.Drawing.Point(225, 173);
-            this.labVolB.Name = "labVolB";
-            this.labVolB.Size = new System.Drawing.Size(21, 13);
-            this.labVolB.TabIndex = 60;
-            this.labVolB.Text = "50";
             // 
             // SettingsControl
             // 
