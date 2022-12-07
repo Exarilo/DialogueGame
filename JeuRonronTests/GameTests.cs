@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace JeuRonron.Tests
 {
@@ -15,15 +16,12 @@ namespace JeuRonron.Tests
         public void GameTest()
         {
             Game game = new Game();
-            game.Load();
             Assert.IsNotNull(game);
-            
-        }
-
-        [TestMethod()]
-        public void LoadTest()
-        {
-            Assert.Fail();
+            Assert.IsNotNull(game.gameSettings);
+            Assert.IsNotNull(game.listScenes);
+            //Assert.IsTrue(Directory.Exists(Directory.GetCurrentDirectory() + "\\Conversations"));
+            //Assert.IsTrue(File.Exists(Directory.GetCurrentDirectory() + "\\Conversations\\settings.txt"));
+            game.Load();
         }
     }
 }
