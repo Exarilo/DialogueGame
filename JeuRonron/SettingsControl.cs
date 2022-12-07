@@ -56,7 +56,7 @@ namespace JeuRonron
             dictGuilds.Clear();
             var client = new RestClient();
             var request = new RestRequest("https://discord.com/api/users/@me/guilds", Method.Get);
-            request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.GGSiwI.dNaWLLoaDfDSHDUEjbqhtNFPV_fshZyCWiG_t0");
+            request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.G19ZIh.3MZvsGV63YD_WQywUqamBszHwUSe9vcFs5y7pg");
             RestResponse response = client.Execute(request);
             try
             {
@@ -88,7 +88,7 @@ namespace JeuRonron
             //(sender as ComboBox).SelectedItem
             var client = new RestClient();
             var request = new RestRequest($"https://discord.com/api/v10/guilds/{selectedGuildId}/channels", Method.Get);
-            request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.GGSiwI.dNaWLLoaDfDSHDUEjbqhtNFPV_fshZyCWiG_t0");
+            request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.G19ZIh.3MZvsGV63YD_WQywUqamBszHwUSe9vcFs5y7pg");
             RestResponse response = client.Execute(request);
 
             try
@@ -122,7 +122,7 @@ namespace JeuRonron
                 string selectedChannel = dictChannels[comboChannels.SelectedItem.ToString()];
                 var client = new RestClient();
                 var request = new RestRequest($"https://discord.com/api/v9/channels/{selectedChannel}/messages", Method.Get);
-                request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.GGSiwI.dNaWLLoaDfDSHDUEjbqhtNFPV_fshZyCWiG_t0");
+                request.AddHeader("Authorization", "Bot MTA0MTc2Njc3NDQyMjY0NjkwNQ.G19ZIh.3MZvsGV63YD_WQywUqamBszHwUSe9vcFs5y7pg");
 
                 RestResponse response = client.Execute(request);
                 var messages = JsonConvert.DeserializeObject<List<Message>>(response.Content);

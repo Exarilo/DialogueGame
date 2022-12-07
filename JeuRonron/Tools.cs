@@ -48,6 +48,9 @@ namespace JeuRonron
             }
 
             File.AppendAllText(scenarioPath, scenario, Encoding.UTF8);
+            Scene scene = new Scene(rootPath);
+            scene.LoadScene();
+            MainForm.game.listScenes.Add(scene);
         }
     }
 }

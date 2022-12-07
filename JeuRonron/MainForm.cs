@@ -7,7 +7,7 @@ namespace JeuRonron
 {
     public partial class MainForm : Form
     {
-        public Game game;
+        public static Game game;
         public Random random = new Random();
         public Bulle bulle1;
         public MainForm()
