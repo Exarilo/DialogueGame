@@ -30,7 +30,6 @@ namespace JeuRonron
                 scene.LoadScene();
                 listScenes.Add(scene);
             }
-
         }
     }
 }

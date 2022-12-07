@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JeuRonron", "JeuRonron\JeuRonron.csproj", "{EB969D0E-EC73-4AAF-8FE3-6E9677F81314}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JeuRonronTests", "JeuRonronTests\JeuRonronTests.csproj", "{51436F9E-B652-435F-9393-E86942202EED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{EB969D0E-EC73-4AAF-8FE3-6E9677F81314}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB969D0E-EC73-4AAF-8FE3-6E9677F81314}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB969D0E-EC73-4AAF-8FE3-6E9677F81314}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51436F9E-B652-435F-9393-E86942202EED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51436F9E-B652-435F-9393-E86942202EED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51436F9E-B652-435F-9393-E86942202EED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51436F9E-B652-435F-9393-E86942202EED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
