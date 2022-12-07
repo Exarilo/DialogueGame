@@ -41,9 +41,9 @@ namespace JeuRonron
         {
             get
             {
-                CreateParams p = base.CreateParams;
-                p.ExStyle = p.ExStyle | WS_EX_DLGMODALFRAME;
-                return p;
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x00000020; // WS_EX_TRANSPARENT
+                return cp;
             }
         }
         public void AddPanelCharName(Form currentForm)
@@ -81,6 +81,13 @@ namespace JeuRonron
                 this.Dock = DockStyle.Fill;
                 this.AutoSize = false;
                 this.TextChanged += new EventHandler(messageChanged);
+
+                this.SetStyle(ControlStyles.SupportsTransparentBackColor |
+                     ControlStyles.OptimizedDoubleBuffer |
+                     ControlStyles.AllPaintingInWmPaint |
+                     ControlStyles.ResizeRedraw |
+                     ControlStyles.UserPaint, true);
+                BackColor = Color.Transparent;
             }
             protected void messageChanged(object sender, EventArgs e)
             {

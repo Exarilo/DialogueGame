@@ -60,6 +60,8 @@ namespace JeuRonron
                     }
                 }
             }
+            if(!File.Exists(path + "\\Scénario.txt"))
+                return;
             scenario = File.ReadAllLines(path + "\\Scénario.txt");
         }
 
@@ -70,6 +72,8 @@ namespace JeuRonron
         }
         private async void Scene_Load(object sender, EventArgs e)
         {
+            if (scenario == null)
+                return;
             foreach (string line in scenario)
             {
                 DetectChar(line);

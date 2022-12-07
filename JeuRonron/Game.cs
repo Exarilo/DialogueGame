@@ -20,6 +20,8 @@ namespace JeuRonron
         {
             gameSettings.Load();
             var ImgDirectories = Directory.GetCurrentDirectory() + "\\Conversations";
+            if (!Directory.Exists(ImgDirectories))
+                return;
             string[] dirs = Directory.GetDirectories(ImgDirectories, "*", SearchOption.TopDirectoryOnly);
 
             foreach (string dir in dirs)

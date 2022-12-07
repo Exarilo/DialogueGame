@@ -18,6 +18,8 @@ namespace JeuRonron
         public void Load()
         {
             var SettingsDirectory = Directory.GetCurrentDirectory() + "\\Conversations\\settings.txt";
+            if (!File.Exists(SettingsDirectory))
+                return;
             string[] lines = File.ReadAllLines(SettingsDirectory);
             //GameSettings gameSettings = new GameSettings();
             foreach (string line in lines)

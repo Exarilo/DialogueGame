@@ -22,9 +22,13 @@ namespace JeuRonron
         {
             game = new Game();
             game.Load();
-           
-            charSelectionControl.AddCharacters(game.listScenes[game.currentSceneIndex].listChar);
+            if(game.listScenes.Count == 0)
+            {
+                charSelectionControl.Visible = false;
+                return;
+            }
 
+            charSelectionControl.AddCharacters(game.listScenes[game.currentSceneIndex].listChar);
             charSelectionControl.ButtonNext.Click += BtNextClick;
             charSelectionControl.ButtonPrevious.Click += BtPreviousClick;
             charSelectionControl.ButtonSelect.Click += BtSelectClick;
@@ -83,16 +87,5 @@ namespace JeuRonron
             // panelGame.Controls.OfType<PictureBox>().ToList().ForEach(control => panelGame.Controls.Remove(control));
             ///AddCharImg();
         }
-
-
-
-
-        private void MainForm_ControlAdded(object sender, ControlEventArgs e)
-        {
-            if (!(e.Control is Scene))
-                return;
-        }
-
-
     }
 }

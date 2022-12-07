@@ -61,7 +61,6 @@
             this.Name = "MainForm";
             this.Text = "Selection des personnages";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.MainForm_ControlAdded);
             this.ResumeLayout(false);
 
         }
