@@ -38,42 +38,42 @@ namespace JeuRonron
             timer.Start();
         };*/
 
-        public void MovePictureboxToControl(PictureBox pb, Control control)
+        public void MoveControlToControl(Control ctr, Control control)
         {
             Timer timer = new Timer();
             timer.Interval = 10;
             timer.Tick += (s, e) =>{
-                if (pb.Location.X < control.Location.X)
+                if (ctr.Location.X < control.Location.X)
                 {
-                    pb.Location = new Point(pb.Location.X + 5, pb.Location.Y);
-                    if (pb.Location.X + pb.Width > control.Location.X)
+                    ctr.Location = new Point(ctr.Location.X + 5, ctr.Location.Y);
+                    if (ctr.Location.X + ctr.Width > control.Location.X)
                         timer.Stop();
                 }
 
                 else
                 {
-                    pb.Location = new Point(pb.Location.X - 5, pb.Location.Y);
-                    if (pb.Location.X  < control.Location.X+ control.Width)
+                    ctr.Location = new Point(ctr.Location.X - 5, ctr.Location.Y);
+                    if (ctr.Location.X  < control.Location.X+ control.Width)
                         timer.Stop();
                 }
             };
             timer.Start();
         }
-        public void MakeAJump(PictureBox pb, int jumpSize,int jumpDurationMS)
+        public void MakeAJump(Control ctr, int jumpSize,int jumpDurationMS)
         {
             Timer timer = new Timer();
             timer.Interval = 10;
 
-            int startingPosY = pb.Location.Y;
+            int startingPosY = ctr.Location.Y;
             int nbCptLeft = jumpDurationMS / timer.Interval;
             int cptMiddleJump = nbCptLeft / 2;
             timer.Tick += (s, e) => {
                 
                 if(nbCptLeft > cptMiddleJump)
-                    pb.Location = new Point(pb.Location.X, pb.Location.Y-(jumpSize/cptMiddleJump));
+                    ctr.Location = new Point(ctr.Location.X, ctr.Location.Y-(jumpSize/cptMiddleJump));
                
                 else
-                    pb.Location = new Point(pb.Location.X, pb.Location.Y + (jumpSize / cptMiddleJump));
+                    ctr.Location = new Point(ctr.Location.X, ctr.Location.Y + (jumpSize / cptMiddleJump));
                 
                 nbCptLeft--;
                 if (nbCptLeft == 0)
@@ -84,32 +84,8 @@ namespace JeuRonron
         public TestPictureBoxAnimation()
         {
             InitializeComponent();
-            //MovePictureboxToControl(pictureBox2, pictureBox1);
+            MoveControlToControl(pictureBox2, pictureBox1);
             MakeAJump(pictureBox2, 50, 100);
-            //timer2.Start();
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            int x = pictureBox2.Location.X;
-            int y = pictureBox2.Location.Y;
-
-            pictureBox2.Location = new Point(x + 25, y);
-
-            if (x > this.Width)
-                timer2.Stop();
-        }
-
-        private void TestPictureBoxAnimation_Load(object sender, EventArgs e)
-        {
-
-
         }
     }
 }

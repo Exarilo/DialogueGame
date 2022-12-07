@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
 
-//ACTUALISER APRES IMPORT CONV
-
 namespace JeuRonron
 {
     public partial class MainForm : Form
     {
         public static Game game;
-        public Random random = new Random();
-        public Bulle bulle1;
         public MainForm()
         {
             InitializeComponent();
@@ -77,15 +73,6 @@ namespace JeuRonron
             this.Text = game.listScenes[game.currentSceneIndex].SceneName;
             charSelectionControl.Visible = false;
             this.Controls.Add(game.listScenes[game.currentSceneIndex]);
-        }
-
-
-
-
-        private void MainForm_Resize(object sender, EventArgs e)
-        {
-            // panelGame.Controls.OfType<PictureBox>().ToList().ForEach(control => panelGame.Controls.Remove(control));
-            ///AddCharImg();
         }
     }
 }
