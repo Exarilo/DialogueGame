@@ -1,28 +1,34 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace JeuRonron
 {
-    public partial class Bulle : Panel
+    public partial class Bulle : TrasnparentPanel
     {
         public Panel panelNameChar { get; set; }
         const int WS_EX_DLGMODALFRAME = 0x00000001;
+        private const int WS_EX_TRANSPARENT = 0x20;
         public Message message { get; set; } = new Message();
         public bool isPanelCharNameExist { get; set; } = false;
         public string CharName { get; set; }
         private string MessageToDisplay { get; set; }
 
+
         public Bulle() : base()
         {
-            
+
         }
         public Bulle(Character character) : base()
         {
-            CharName=character.Name;    
+            BackColor = Color.FromArgb(255, 128, 128);
+            CharName = character.Name;
             this.Dock = DockStyle.Bottom;
-            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.Opaque, true);
+
+            //SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             message = new Message();
 
             this.Controls.Add(message);
@@ -37,15 +43,7 @@ namespace JeuRonron
 
         }
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x00000020; // WS_EX_TRANSPARENT
-                return cp;
-            }
-        }
+
         public void AddPanelCharName(Form currentForm)
         {
             Label labelCharName = new Label();
@@ -67,7 +65,7 @@ namespace JeuRonron
                 panelNameChar.Controls.Add(labelCharName);
             panelNameChar.Refresh();
         }
-        
+
         public class Message : Label
         {
             Timer t;
@@ -82,13 +80,15 @@ namespace JeuRonron
                 this.AutoSize = false;
                 this.TextChanged += new EventHandler(messageChanged);
 
-                this.SetStyle(ControlStyles.SupportsTransparentBackColor |
-                     ControlStyles.OptimizedDoubleBuffer |
-                     ControlStyles.AllPaintingInWmPaint |
-                     ControlStyles.ResizeRedraw |
-                     ControlStyles.UserPaint, true);
-                BackColor = Color.Transparent;
-            }
+                /*
+                 this.SetStyle(ControlStyles.SupportsTransparentBackColor |
+                    ControlStyles.OptimizedDoubleBuffer |
+                    ControlStyles.AllPaintingInWmPaint |
+                    ControlStyles.ResizeRedraw |
+                    ControlStyles.UserPaint, true);
+                    BackColor = Color.Transparent;
+            */
+                }
             protected void messageChanged(object sender, EventArgs e)
             {
                 this.TextChanged -= messageChanged;
@@ -128,5 +128,5 @@ namespace JeuRonron
             }
         }
     }
-    
+
 }

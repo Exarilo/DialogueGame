@@ -11,7 +11,7 @@ namespace JeuRonron
     {
         public List<Scene> listScenes { get; set; } = new List<Scene>();
         public GameSettings gameSettings { get; set; } = new GameSettings();
-        public int currentSceneIndex{ get; set; } = 0;
+        public int currentSceneIndex { get; set; } = 0;
         public Game()
         {
 
@@ -19,16 +19,21 @@ namespace JeuRonron
         public void Load()
         {
             gameSettings.Load();
-            var ImgDirectories = Directory.GetCurrentDirectory() + "\\Conversations";
-            if (!Directory.Exists(ImgDirectories))
-                return;
-            string[] dirs = Directory.GetDirectories(ImgDirectories, "*", SearchOption.TopDirectoryOnly);
+            listScenes.AddRange(ProduceScenes(Directory.GetCurrentDirectory() + "\\Conversations").ToList());
+        }
 
-            foreach (string dir in dirs)
+        IEnumerable<Scene> ProduceScenes(string rootDirectory)
+        {
+            if (Directory.Exists(rootDirectory))
             {
-                Scene scene = new Scene(dir);
-                scene.LoadScene();
-                listScenes.Add(scene);
+                string[] dirs = Directory.GetDirectories(rootDirectory, "*", SearchOption.TopDirectoryOnly);
+
+                foreach (string dir in dirs)
+                {
+                    Scene scene = new Scene(dir);
+                    scene.LoadScene();
+                    yield return scene;
+                }
             }
         }
     }

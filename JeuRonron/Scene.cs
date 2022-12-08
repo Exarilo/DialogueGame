@@ -18,6 +18,7 @@ namespace JeuRonron
     {
         private PictureBox pbChar;
         private PictureBox pbBackground;
+        private Button button1;
 
         public Bulle Bulle { get; set; }
         public string SceneName { get; set; }
@@ -153,21 +154,21 @@ namespace JeuRonron
 
         private void InitializeComponent()
         {
-            this.pbChar = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.pbBackground = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pbChar)).BeginInit();
+            this.pbChar = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbBackground)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbChar)).BeginInit();
             this.SuspendLayout();
             // 
-            // pbChar
+            // button1
             // 
-            this.pbChar.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pbChar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbChar.Location = new System.Drawing.Point(274, 147);
-            this.pbChar.Name = "pbChar";
-            this.pbChar.Size = new System.Drawing.Size(307, 342);
-            this.pbChar.TabIndex = 0;
-            this.pbChar.TabStop = false;
+            this.button1.Location = new System.Drawing.Point(68, 404);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // pbBackground
             // 
@@ -179,15 +180,26 @@ namespace JeuRonron
             this.pbBackground.TabIndex = 1;
             this.pbBackground.TabStop = false;
             // 
+            // pbChar
+            // 
+            this.pbChar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pbChar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbChar.Location = new System.Drawing.Point(274, 147);
+            this.pbChar.Name = "pbChar";
+            this.pbChar.Size = new System.Drawing.Size(307, 342);
+            this.pbChar.TabIndex = 0;
+            this.pbChar.TabStop = false;
+            // 
             // Scene
             // 
-            this.Controls.Add(this.pbChar);
             this.Controls.Add(this.pbBackground);
+            this.Controls.Add(this.pbChar);
+            this.Controls.Add(this.button1);
             this.Name = "Scene";
             this.Size = new System.Drawing.Size(816, 489);
             this.Load += new System.EventHandler(this.Scene_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pbChar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBackground)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbChar)).EndInit();
             this.ResumeLayout(false);
 
         }
