@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace JeuRonron
 {
-    public partial class Bulle : TrasnparentPanel
+    public partial class Bulle : Panel
     {
         public Panel panelNameChar { get; set; }
         const int WS_EX_DLGMODALFRAME = 0x00000001;
@@ -30,8 +30,10 @@ namespace JeuRonron
 
             //SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             message = new Message();
+            message.BringToFront();
 
             this.Controls.Add(message);
+
             this.Resize += (sender, e) => {
                 panelNameChar.Location = new Point(this.Location.X + 5, this.Location.Y - panelNameChar.Height);
             };
@@ -75,6 +77,7 @@ namespace JeuRonron
             public Message() : base()
             {
                 //this.Click += (s, e) => { this.Text = "azfazfazf"; };
+                this.BringToFront();
                 this.Font = new Font("Arial", 15, FontStyle.Bold);
                 this.Dock = DockStyle.Fill;
                 this.AutoSize = false;

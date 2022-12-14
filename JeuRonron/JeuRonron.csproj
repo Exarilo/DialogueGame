@@ -88,12 +88,6 @@
       <DependentUpon>CustomCharImgForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Discord.cs" />
-    <Compile Include="TestPanelOpacity.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TestPanelOpacity.Designer.cs">
-      <DependentUpon>TestPanelOpacity.cs</DependentUpon>
-    </Compile>
     <Compile Include="TestPictureBoxAnimation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,14 +123,8 @@
     <Compile Include="CharSelectionControl.Designer.cs">
       <DependentUpon>CharSelectionControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="TrasnparentPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <EmbeddedResource Include="CustomCharImgForm.resx">
       <DependentUpon>CustomCharImgForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TestPanelOpacity.resx">
-      <DependentUpon>TestPanelOpacity.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TestPictureBoxAnimation.resx">
       <DependentUpon>TestPictureBoxAnimation.cs</DependentUpon>

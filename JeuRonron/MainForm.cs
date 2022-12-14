@@ -1,8 +1,21 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using static JeuRonron.Scene;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace JeuRonron
 {
+    //AJOUTER README DANS LES FOLERS
+    //REMOVE BACKGROUND
+    //VERIFIER VALEURS NULL
+    //PERMETTRE DE CHANGER COULEUR DES BULLES
+    //PERMETTRE DE CHANGER COULEUR DU BACKGROUND SI PAS DE SOLUTIONS
+    //HISTORIQUE DES MESSAGES RETOUR EN ARRIERE
+    //GraphicComponents FOLDER
+    //Settings.txt SI DELIMITEUR DEBUT == DELIMITEUR FIN
+
     public partial class MainForm : Form
     {
         public static Game game;
@@ -23,6 +36,20 @@ namespace JeuRonron
                 charSelectionControl.Visible = false;
                 return;
             }
+
+            this.ControlAdded += async (se, ev) =>
+            {
+                if (ev.Control is Scene)
+                {
+                    await (ev.Control as Scene).DoDialag();
+                    this.Controls.Remove(ev.Control as Scene);
+                    charSelectionControl.Visible = true;
+                    this.Refresh();
+                }
+            };
+
+
+
 
             charSelectionControl.AddCharacters(game.listScenes[game.currentSceneIndex].listChar);
             charSelectionControl.ButtonNext.Click += BtNextClick;
@@ -73,6 +100,12 @@ namespace JeuRonron
             this.Text = game.listScenes[game.currentSceneIndex].SceneName;
             charSelectionControl.Visible = false;
             this.Controls.Add(game.listScenes[game.currentSceneIndex]);
+
+        }
+        public void ReturnToCharSelection()
+        {
+            this.Controls.OfType<Scene>().ToList().ForEach(x => x.Dispose());
+            
         }
     }
 }

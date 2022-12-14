@@ -12,6 +12,7 @@ namespace JeuRonron
         //GameSettings
         public const string UnkownCharName = "Unkown";
 
+
         public const string DelimiteurStartChar = "[";
         public const string DelimiteurEndChar = "]";
         public const string DelimiteurChoice = "*";
@@ -25,9 +26,11 @@ namespace JeuRonron
         public const string InFileSetBackgroundImg = "Changer background img :";
         public const string InFileSetCharImg = "Changer perso img :";
 
-        public const string MainCharName = "MainChar";
 
+
+        public const string ReadMeConversation = "MainChar";
+        public const string ReadMeGraphicalComponent= "MainChar";
+        public const string ReadMeMotsBackground = "MainChar";
         
-
     }
 }
