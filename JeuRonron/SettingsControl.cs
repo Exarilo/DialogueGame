@@ -219,5 +219,26 @@ namespace JeuRonron
                 btVolG.BackgroundImage = lastVolGImgBeforeMute;
             }
         }
+
+        private void btSelectColor_Click(object sender, EventArgs e)
+        {
+            colorDialog1.Color = panelChatColor.BackColor;
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+                panelChatColor.BackColor = colorDialog1.Color;
+        }
+
+        private void btFontText_Click(object sender, EventArgs e)
+        {
+            fontDialog1.ShowColor = true;
+
+            fontDialog1.Font = labelText.Font;
+            fontDialog1.Color = labelText.ForeColor;
+
+            if (fontDialog1.ShowDialog() != DialogResult.Cancel)
+            {
+                labelText.Font = fontDialog1.Font;
+                labelText.ForeColor = fontDialog1.Color;
+            }
+        }
     }
 }

@@ -218,5 +218,11 @@
   <ItemGroup>
     <None Include="Resources\flecheInvert.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PipetteCouleur.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pipette.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

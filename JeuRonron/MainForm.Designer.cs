@@ -67,7 +67,6 @@
 
         #endregion
         private System.Windows.Forms.Timer timer1;
-        private Scene scene1;
         private CharSelectionControl charSelectionControl;
         private SettingsControl settingsControl;
     }

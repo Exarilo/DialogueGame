@@ -15,6 +15,7 @@ namespace JeuRonron
     //HISTORIQUE DES MESSAGES RETOUR EN ARRIERE
     //GraphicComponents FOLDER
     //Settings.txt SI DELIMITEUR DEBUT == DELIMITEUR FIN
+    //Splash Screen
 
     public partial class MainForm : Form
     {
