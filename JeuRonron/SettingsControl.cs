@@ -224,7 +224,12 @@ namespace JeuRonron
         {
             colorDialog1.Color = panelChatColor.BackColor;
             if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
                 panelChatColor.BackColor = colorDialog1.Color;
+                panelRender.BackColor = colorDialog1.Color;
+                MainForm.game.gameSettings.BulleBackColor = colorDialog1.Color;
+            }
+                
         }
 
         private void btFontText_Click(object sender, EventArgs e)
@@ -238,6 +243,11 @@ namespace JeuRonron
             {
                 labelText.Font = fontDialog1.Font;
                 labelText.ForeColor = fontDialog1.Color;
+                labelRender.Font = fontDialog1.Font;
+                labelRender.ForeColor = fontDialog1.Color;
+                MainForm.game.gameSettings.BulleTextColor = fontDialog1.Color;
+                MainForm.game.gameSettings.BulleTextFont = fontDialog1.Font;
+
             }
         }
     }

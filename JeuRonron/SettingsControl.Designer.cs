@@ -49,34 +49,31 @@
             this.trackVolB = new System.Windows.Forms.TrackBar();
             this.trackVolG = new System.Windows.Forms.TrackBar();
             this.DialogPage = new System.Windows.Forms.TabPage();
+            this.labelText = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.panelRender = new System.Windows.Forms.Panel();
+            this.labelRender = new System.Windows.Forms.Label();
             this.panelChatColor = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btAddBot = new System.Windows.Forms.Button();
             this.btVolB = new System.Windows.Forms.Button();
             this.btVolG = new System.Windows.Forms.Button();
-            this.btSelectColor = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label13 = new System.Windows.Forms.Label();
-            this.labelText = new System.Windows.Forms.Label();
-            this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.btFontText = new System.Windows.Forms.Button();
+            this.btSelectColor = new System.Windows.Forms.Button();
             this.tabSettings.SuspendLayout();
             this.DiscordPage.SuspendLayout();
             this.AudioPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackVolB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackVolG)).BeginInit();
             this.DialogPage.SuspendLayout();
+            this.panelRender.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -324,11 +321,8 @@
             this.DialogPage.Controls.Add(this.btFontText);
             this.DialogPage.Controls.Add(this.labelText);
             this.DialogPage.Controls.Add(this.label13);
-            this.DialogPage.Controls.Add(this.button2);
-            this.DialogPage.Controls.Add(this.panel2);
             this.DialogPage.Controls.Add(this.label11);
-            this.DialogPage.Controls.Add(this.panel1);
-            this.DialogPage.Controls.Add(this.label10);
+            this.DialogPage.Controls.Add(this.panelRender);
             this.DialogPage.Controls.Add(this.btSelectColor);
             this.DialogPage.Controls.Add(this.panelChatColor);
             this.DialogPage.Controls.Add(this.label9);
@@ -338,6 +332,51 @@
             this.DialogPage.TabIndex = 2;
             this.DialogPage.Text = "Bulle de dialogue";
             this.DialogPage.UseVisualStyleBackColor = true;
+            // 
+            // labelText
+            // 
+            this.labelText.AutoSize = true;
+            this.labelText.Location = new System.Drawing.Point(180, 101);
+            this.labelText.Name = "labelText";
+            this.labelText.Size = new System.Drawing.Size(58, 13);
+            this.labelText.TabIndex = 9;
+            this.labelText.Text = "Mon Texte";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(85, 102);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(79, 13);
+            this.label13.TabIndex = 8;
+            this.label13.Text = "Taille du texte :";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(83, 200);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(75, 13);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "Rendu visuel :";
+            // 
+            // panelRender
+            // 
+            this.panelRender.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelRender.Controls.Add(this.labelRender);
+            this.panelRender.Location = new System.Drawing.Point(183, 162);
+            this.panelRender.Name = "panelRender";
+            this.panelRender.Size = new System.Drawing.Size(386, 81);
+            this.panelRender.TabIndex = 4;
+            // 
+            // labelRender
+            // 
+            this.labelRender.AutoSize = true;
+            this.labelRender.Location = new System.Drawing.Point(9, 26);
+            this.labelRender.Name = "labelRender";
+            this.labelRender.Size = new System.Drawing.Size(104, 13);
+            this.labelRender.TabIndex = 0;
+            this.labelRender.Text = "Blabla bla bla bla bla";
             // 
             // panelChatColor
             // 
@@ -360,6 +399,10 @@
             // 
             this.colorDialog1.AnyColor = true;
             this.colorDialog1.FullOpen = true;
+            // 
+            // fontDialog1
+            // 
+            this.fontDialog1.FontMustExist = true;
             // 
             // pictureBox2
             // 
@@ -419,6 +462,17 @@
             this.btVolG.UseVisualStyleBackColor = false;
             this.btVolG.Click += new System.EventHandler(this.btVolG_Click);
             // 
+            // btFontText
+            // 
+            this.btFontText.BackgroundImage = global::JeuRonron.Properties.Resources.FontText;
+            this.btFontText.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btFontText.Location = new System.Drawing.Point(339, 95);
+            this.btFontText.Name = "btFontText";
+            this.btFontText.Size = new System.Drawing.Size(29, 24);
+            this.btFontText.TabIndex = 10;
+            this.btFontText.UseVisualStyleBackColor = true;
+            this.btFontText.Click += new System.EventHandler(this.btFontText_Click);
+            // 
             // btSelectColor
             // 
             this.btSelectColor.BackgroundImage = global::JeuRonron.Properties.Resources.Pipette;
@@ -429,89 +483,6 @@
             this.btSelectColor.TabIndex = 2;
             this.btSelectColor.UseVisualStyleBackColor = true;
             this.btSelectColor.Click += new System.EventHandler(this.btSelectColor_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(85, 102);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(90, 13);
-            this.label10.TabIndex = 3;
-            this.label10.Text = "Couleur du texte :";
-            // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.label12);
-            this.panel1.Location = new System.Drawing.Point(178, 211);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(386, 81);
-            this.panel1.TabIndex = 4;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(70, 251);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(75, 13);
-            this.label11.TabIndex = 5;
-            this.label11.Text = "Rendu visuel :";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(32, 39);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(41, 13);
-            this.label12.TabIndex = 0;
-            this.label12.Text = "label12";
-            // 
-            // button2
-            // 
-            this.button2.BackgroundImage = global::JeuRonron.Properties.Resources.Pipette;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button2.Location = new System.Drawing.Point(347, 96);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(29, 24);
-            this.button2.TabIndex = 7;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // panel2
-            // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Location = new System.Drawing.Point(183, 98);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(142, 24);
-            this.panel2.TabIndex = 6;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(88, 152);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(79, 13);
-            this.label13.TabIndex = 8;
-            this.label13.Text = "Taille du texte :";
-            // 
-            // labelText
-            // 
-            this.labelText.AutoSize = true;
-            this.labelText.Location = new System.Drawing.Point(183, 151);
-            this.labelText.Name = "labelText";
-            this.labelText.Size = new System.Drawing.Size(58, 13);
-            this.labelText.TabIndex = 9;
-            this.labelText.Text = "Mon Texte";
-            // 
-            // btFontText
-            // 
-            this.btFontText.BackgroundImage = global::JeuRonron.Properties.Resources.Pipette;
-            this.btFontText.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btFontText.Location = new System.Drawing.Point(258, 146);
-            this.btFontText.Name = "btFontText";
-            this.btFontText.Size = new System.Drawing.Size(29, 24);
-            this.btFontText.TabIndex = 10;
-            this.btFontText.UseVisualStyleBackColor = true;
-            this.btFontText.Click += new System.EventHandler(this.btFontText_Click);
             // 
             // SettingsControl
             // 
@@ -530,10 +501,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackVolG)).EndInit();
             this.DialogPage.ResumeLayout(false);
             this.DialogPage.PerformLayout();
+            this.panelRender.ResumeLayout(false);
+            this.panelRender.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -573,12 +544,9 @@
         private System.Windows.Forms.Button btFontText;
         private System.Windows.Forms.Label labelText;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Panel panelRender;
+        private System.Windows.Forms.Label labelRender;
         private System.Windows.Forms.FontDialog fontDialog1;
     }
 }

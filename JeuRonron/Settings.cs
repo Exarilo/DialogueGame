@@ -1,8 +1,9 @@
-﻿using System.IO;
+﻿using System.Drawing;
+using System.IO;
 
 namespace JeuRonron
 {
-    public class GameSettings
+    public class Settings
     {
         public string UnkownCharName { get; set; } = Constant.UnkownCharName;
         public string DelimiteurStartChar { get; set; } = Constant.DelimiteurStartChar;
@@ -11,7 +12,12 @@ namespace JeuRonron
         public string SetBackgroundImg { get; set; } = Constant.SetBackgroundImg;
         public string SetCharImg { get; set; } = Constant.SetCharImg;
 
-        public GameSettings()
+        public Color BulleBackColor { get; set; } = Color.White;
+        public Color BulleTextColor { get; set; } = Color.Black;
+        public Font BulleTextFont { get; set; } = default;
+
+
+        public Settings()
         {
          
         }

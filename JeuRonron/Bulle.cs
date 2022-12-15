@@ -45,6 +45,15 @@ namespace JeuRonron
 
         }
 
+        public void SetStyle(Color BulleBackColor, Color BulleTextColor, Font BulleTextFont)
+        {
+            if(BulleBackColor!=null)
+                this.BackColor = BulleBackColor;
+            if(BulleTextColor!=null)
+                this.message.ForeColor = BulleTextColor;
+            if(BulleTextFont!=null)
+                this.message.Font = BulleTextFont;
+        }
 
         public void AddPanelCharName(Form currentForm)
         {

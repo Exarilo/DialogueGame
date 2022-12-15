@@ -49,6 +49,7 @@
             this.settingsControl.Name = "settingsControl";
             this.settingsControl.Size = new System.Drawing.Size(800, 450);
             this.settingsControl.TabIndex = 1;
+            this.settingsControl.Visible = false;
             // 
             // MainForm
             // 

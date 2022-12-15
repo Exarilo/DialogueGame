@@ -13,7 +13,7 @@ namespace JeuRonron
     public class Game
     {
         public List<Scene> listScenes { get; set; } = new List<Scene>();
-        public GameSettings gameSettings { get; set; } = new GameSettings();
+        public Settings gameSettings { get; set; } = new Settings();
         public IEnumerable<Bitmap> backgroundsKeywords { get; set; }
         public int currentSceneIndex { get; set; } = 0;
         public Game()

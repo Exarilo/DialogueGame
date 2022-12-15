@@ -84,8 +84,13 @@ namespace JeuRonron
         public TestPictureBoxAnimation()
         {
             InitializeComponent();
-            MoveControlToControl(pictureBox2, pictureBox1);
-            MakeAJump(pictureBox2, 50, 100);
+            //MoveControlToControl(pictureBox2, pictureBox1);
+            MakeAJump(pictureBox2, 150, 2000);
+        }
+
+        private void TestPictureBoxAnimation_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

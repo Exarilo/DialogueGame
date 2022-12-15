@@ -62,6 +62,7 @@ namespace JeuRonron
                     else
                         pbChar.Visible = false;
                     Bulle bulle = new Bulle(detectedChar[0]);
+                    bulle.SetStyle(MainForm.game.gameSettings.BulleBackColor, MainForm.game.gameSettings.BulleTextColor, MainForm.game?.gameSettings?.BulleTextFont);
                     if (!locationPbCharAlreadyChanged)
                     {
                         pbChar.Location = new Point(pbChar.Location.X, bulle.Location.Y+ 8);
@@ -202,7 +203,7 @@ namespace JeuRonron
             // 
             // Scene
             // 
-            this.BackColor = System.Drawing.SystemColors.Info;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Controls.Add(this.pbChar);
             this.Name = "Scene";
