@@ -7,11 +7,11 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace JeuRonron
 {
+    //BUTTON HOME POUR REVENIR MAIN SCNEEN
     //AJOUTER README DANS LES FOLDERS
     //REMOVE BACKGROUND
     //VERIFIER VALEURS NULL
     //PERMETTRE DE CHANGER COULEUR DU BACKGROUND SI PAS DE SOLUTIONS
-    //HISTORIQUE DES MESSAGES RETOUR EN ARRIERE
     //GraphicComponents FOLDER
     //Settings.txt SI DELIMITEUR DEBUT == DELIMITEUR FIN
     //Splash Screen

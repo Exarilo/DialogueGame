@@ -35,9 +35,9 @@ namespace JeuRonron
             if (scenario == null)
                 return;
             bool locationPbCharAlreadyChanged = false;
-            foreach (string line in scenario)
+            for(int i=0;i<scenario.Length;i++)
             {
-                DetectChar(line);
+                DetectChar(scenario[i]);
                 Bitmap detectedBackground = DetectKeywordBackground(MessageToDisplay);
                 if (detectedBackground != null)
                     this.BackgroundImage = detectedBackground;
@@ -70,7 +70,8 @@ namespace JeuRonron
                     }
 
                     this.Controls.Add(bulle);
-                    bulle.message.Click += new EventHandler(MessageClick);
+                    bulle.buttonNext.Click += (s, e) => { signal.Release(); };
+                    bulle.buttonPrevious.Click += (s, e) => { i= i==0?i-1:i=i-2; signal.Release(); };
                     bulle.message.Text = MessageToDisplay;
 
                     await signal.WaitAsync();
@@ -121,15 +122,6 @@ namespace JeuRonron
             scenario = File.ReadAllLines(path + "\\Scénario.txt");
         }
 
-        protected void MessageClick(object sender, EventArgs e)
-        {
-            signal.Release();
-
-        }
-        private async void Scene_Load(object sender, EventArgs e)
-        {
-           
-        }
 
         public Bitmap DetectKeywordBackground(string line)
         {
@@ -208,7 +200,6 @@ namespace JeuRonron
             this.Controls.Add(this.pbChar);
             this.Name = "Scene";
             this.Size = new System.Drawing.Size(816, 489);
-            this.Load += new System.EventHandler(this.Scene_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbChar)).EndInit();
             this.ResumeLayout(false);
 

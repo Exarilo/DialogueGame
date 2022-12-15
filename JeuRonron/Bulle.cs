@@ -15,6 +15,8 @@ namespace JeuRonron
         public bool isPanelCharNameExist { get; set; } = false;
         public string CharName { get; set; }
         private string MessageToDisplay { get; set; }
+        public Button buttonNext { get; set; } = new Button();
+        public Button buttonPrevious { get; set; } = new Button();
 
 
         public Bulle() : base()
@@ -23,6 +25,17 @@ namespace JeuRonron
         }
         public Bulle(Character character) : base()
         {
+            buttonNext.Text = "-->";
+            buttonNext.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonNext.Location = new Point(this.Location.X+this.Width-buttonNext.Width+2,this.Location.Y+this.Height - buttonNext.Height+2);
+
+
+            buttonPrevious.Text = "<--";
+            buttonPrevious.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            buttonPrevious.Location = new Point(this.Location.X-2 , this.Location.Y + this.Height - buttonNext.Height + 2);
+
+            this.Controls.Add(buttonNext);
+            this.Controls.Add(buttonPrevious);
             BackColor = Color.FromArgb(255, 128, 128);
             CharName = character.Name;
             this.Dock = DockStyle.Bottom;
