@@ -7,10 +7,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace JeuRonron
 {
-    //BUTTON HOME POUR REVENIR MAIN SCNEEN
     //AJOUTER README DANS LES FOLDERS
     //REMOVE BACKGROUND
-    //VERIFIER VALEURS NULL
     //PERMETTRE DE CHANGER COULEUR DU BACKGROUND SI PAS DE SOLUTIONS
     //GraphicComponents FOLDER
     //Settings.txt SI DELIMITEUR DEBUT == DELIMITEUR FIN
@@ -19,19 +17,27 @@ namespace JeuRonron
     public partial class MainForm : Form
     {
         public static Game game;
+        private CharSelectionControl charSelectionControl ;
+        private SettingsControl settingsControl;
         public MainForm()
         {
             InitializeComponent();
+            LoadForm();
 
             //btPrevious.BackgroundImage = new Bitmap(Directory.GetCurrentDirectory() + "\\GraphicComponents\\button_previous.png");
             //btNext.BackgroundImage = new Bitmap(Directory.GetCurrentDirectory() + "\\GraphicComponents\\button_next.png");
         }
-
-        private void MainForm_Load(object sender, EventArgs e)
+        public void LoadForm()
         {
+            this.Controls.Clear();
+            charSelectionControl = new CharSelectionControl();
+            settingsControl = new SettingsControl();
+            settingsControl.SendToBack();
+            this.Controls.Add(charSelectionControl);
+            this.Controls.Add(settingsControl);
             game = new Game();
             game.Load();
-            if(game.listScenes.Count == 0)
+            if (game.listScenes.Count == 0)
             {
                 charSelectionControl.Visible = false;
                 return;
@@ -42,9 +48,7 @@ namespace JeuRonron
                 if (ev.Control is Scene)
                 {
                     await (ev.Control as Scene).DoDialag();
-                    this.Controls.Remove(ev.Control as Scene);
-                    charSelectionControl.Visible = true;
-                    this.Refresh();
+                    LoadForm();
                 }
             };
 
@@ -56,6 +60,11 @@ namespace JeuRonron
             charSelectionControl.ButtonPrevious.Click += BtPreviousClick;
             charSelectionControl.ButtonSelect.Click += BtSelectClick;
             charSelectionControl.ButtonSettings.Click += BtSettingsClick;
+            this.Refresh();
+        }
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void BtSettingsClick(object sender, EventArgs e)

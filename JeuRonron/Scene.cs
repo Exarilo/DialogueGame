@@ -18,6 +18,7 @@ namespace JeuRonron
     public partial class Scene : UserControl
     {
         private PictureBox pbChar;
+        private RoundButton btHome;
 
         public Bulle Bulle { get; set; }
         public string SceneName { get; set; }
@@ -98,6 +99,9 @@ namespace JeuRonron
         }
         public void LoadScene()
         {
+            btHome.Click += (s, e) => {
+                (Parent as MainForm).LoadForm();
+            };
             listChar.Add(new Character(Constant.UnkownCharName));
             var filtersImg = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
             string[] dirs = Directory.GetDirectories(path, "*", SearchOption.TopDirectoryOnly);
@@ -178,9 +182,20 @@ namespace JeuRonron
 
         private void InitializeComponent()
         {
+            this.btHome = new JeuRonron.RoundButton();
             this.pbChar = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbChar)).BeginInit();
             this.SuspendLayout();
+            // 
+            // btHome
+            // 
+            this.btHome.BackgroundImage = global::JeuRonron.Properties.Resources.Home;
+            this.btHome.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btHome.Location = new System.Drawing.Point(3, 3);
+            this.btHome.Name = "btHome";
+            this.btHome.Size = new System.Drawing.Size(74, 72);
+            this.btHome.TabIndex = 1;
+            this.btHome.UseVisualStyleBackColor = true;
             // 
             // pbChar
             // 
@@ -197,6 +212,7 @@ namespace JeuRonron
             // 
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Controls.Add(this.btHome);
             this.Controls.Add(this.pbChar);
             this.Name = "Scene";
             this.Size = new System.Drawing.Size(816, 489);

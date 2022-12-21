@@ -30,26 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.charSelectionControl = new JeuRonron.CharSelectionControl();
-            this.settingsControl = new JeuRonron.SettingsControl();
             this.SuspendLayout();
-            // 
-            // charSelectionControl
-            // 
-            this.charSelectionControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.charSelectionControl.Location = new System.Drawing.Point(0, 0);
-            this.charSelectionControl.Name = "charSelectionControl";
-            this.charSelectionControl.Size = new System.Drawing.Size(800, 450);
-            this.charSelectionControl.TabIndex = 0;
-            // 
-            // settingsControl
-            // 
-            this.settingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsControl.Location = new System.Drawing.Point(0, 0);
-            this.settingsControl.Name = "settingsControl";
-            this.settingsControl.Size = new System.Drawing.Size(800, 450);
-            this.settingsControl.TabIndex = 1;
-            this.settingsControl.Visible = false;
             // 
             // MainForm
             // 
@@ -57,8 +38,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.settingsControl);
-            this.Controls.Add(this.charSelectionControl);
             this.Name = "MainForm";
             this.Text = "Selection des personnages";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -68,7 +47,5 @@
 
         #endregion
         private System.Windows.Forms.Timer timer1;
-        private CharSelectionControl charSelectionControl;
-        private SettingsControl settingsControl;
     }
 }

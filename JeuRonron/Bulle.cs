@@ -54,9 +54,17 @@ namespace JeuRonron
             {
                 panelNameChar.Location = new Point(this.Location.X + 5, this.Location.Y - panelNameChar.Height);
             };
-            var currentForm = Application.OpenForms.Cast<Form>().Last();
-            AddPanelCharName(currentForm);
-            Refresh();
+            var currentForm = Application.OpenForms?.Cast<Form>()?.Last();
+            if(currentForm != null)
+            {
+                var panelCharName = currentForm?.Controls?.Find("panelCharName", true);
+                if(panelCharName == null)
+                {
+                    AddPanelCharName(currentForm);
+                    Refresh();
+                }
+            }
+
 
             message.Text = MessageToDisplay;
 
